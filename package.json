@@ -1,0 +1,64 @@
+{
+  "name": "obs-discord-picture-css-generator",
+  "version": "1.0.0",
+  "description": "Generator to create custom CSS for displaying members as picture of Discord call in OBS Studio.",
+  "keywords": [
+    "obs",
+    "discord",
+    "css",
+    "generator"
+  ],
+  "author": {
+    "name": "alfe",
+    "email": "alfe10251@gmail.com",
+    "url": "https://alfebelow.com/"
+  },
+  "license": "MIT",
+  "homepage": "https://obs-discord-icon.alfebelow.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alfe/obs-discord-picture-css-generator"
+  },
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=75fb6554e7e1 --auto-accept-changes"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "5.11.0",
+    "@mui/material": "5.11.0",
+    "@mui/styles": "5.11.0",
+    "i18next": "^21.8.11",
+    "i18next-browser-languagedetector": "^6.1.4",
+    "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^11.17.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/react": "^6.5.12",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/react": "^18.0.21",
+    "@types/react-copy-to-clipboard": "5.0.4",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.1.0",
+    "babel-loader": "^8.2.5",
+    "chromatic": "^6.10.5",
+    "typescript": "^4.8.4",
+    "vite": "^3.1.8"
+  },
+  "resolutions": {
+    "@types/react": "^18.0.21"
+  }
+}
