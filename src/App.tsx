@@ -65,8 +65,13 @@ const Header = () => {
           <>{t("title")}</>
         </Typography>
         <Container>
-        <Typography align="center" paragraph>
+          <Typography align="center" paragraph>
             <>{t("title_anno")}</>
+          </Typography>
+          <Typography align="center" paragraph variant="caption">
+            <>※ 2022.12.19 ぱくぱくできるようになりました</> / 
+            <a href="https://obs-discord-icon.alfebelow.com/">アイコンに見た目に変えたいときはこちら</a> /
+            <a href="https://obs-discord-text.alfebelow.com/">テキストチャンネルの見た目を変えたいときはこちら</a>
           </Typography>
           <TutorialButton />
         </Container>
