@@ -22,16 +22,18 @@ const Header = () => {
   const { t, i18n } = useTranslation("translation", { keyPrefix: "header" });
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);
-    location.replace(`${location.origin}/${language === 'ja' ? '' : language}`)
+    // location.replace(`${location.origin}/${language === 'ja' ? '' : language}`)
   };
   const setLanguage = () => {
-    const language = i18n.language;
-    if ((location.pathname === '' || location.pathname === '/') && language === 'ja') {
-      return;
-    }
-    if (location.pathname === '/ja') {
-      changeLanguage('ja');
-    }
+    changeLanguage('ja');
+
+    // const language = i18n.language;
+    // if ((location.pathname === '' || location.pathname === '/') && language === 'ja') {
+    //   return;
+    // }
+    // if (location.pathname === '/ja') {
+    //   changeLanguage('ja');
+    // }
     // if ((location.pathname !== '' && location.pathname !== '/') && location.pathname !== '/ja' && (location.pathname.substring(1) !== language)) {
     //   changeLanguage(location.pathname.substring(1));
     // }

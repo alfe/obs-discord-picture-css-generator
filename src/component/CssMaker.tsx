@@ -15,12 +15,15 @@ import { Box } from '@mui/system';
 import Button from '@mui/material/Button';
 import CheckBoxListItem from './CheckBoxListItem';
 import tranceAlfe from './img/trance_alfe.png';
+import tranceAlfeMouth from './img/trance_alfe_mouth.png';
 
 const CssMaker = () => {
   const [styles, setStyles] = React.useState<CustomStyle>({
     voiceContainer: {},
     voiceStates: {
       display: 'flex',
+      alignItems: 'flex-end',
+      padding: '16px',
     },
     voiceState: {
       height: 'auto',
@@ -30,8 +33,8 @@ const CssMaker = () => {
     },
     avatarSpeaking: {
       position: 'relative',
+      animation: '0ms infinite alternate ease-in-out null',
       filter: 'brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581)',
-      borderColor: 'transparent', // !important
     },
     name: {
       display: 'none',
@@ -44,11 +47,10 @@ const CssMaker = () => {
     img2: {},
   });
 
-  const [userIdImgUrls, setUserIdImgUrls] = React.useState<string[][]>([['', '']]);
+  const [userIdImgUrls, setUserIdImgUrls] = React.useState<string[][]>([['', '', '']]);
   const [activeMove, setActiveMove] = React.useState(false);
-  const [isSolo, setIsSolo] = React.useState(false);
+  const [isSolo, setIsSolo] = React.useState(true);
   const { t } = useTranslation("translation", { keyPrefix: "css_maker" });
-  console.log({styles, userIdImgStyles, userIdImgUrls})
 
   return (
     <Grid container spacing={2}>
@@ -64,15 +66,18 @@ const CssMaker = () => {
               }} />
             {userIdImgUrls.map((_: any, index: number) => (
               <InputUserIdImgUrlForm
+                key={`id-url-forms-${index}`}
                 hasHelp={index === 0}
                 defaultUserId={index === 0 ? '739000000000000000' : ''}
                 defaultImgUrl={index === 0 ? tranceAlfe : ''}
-                onChange={(userId: string, imgUrl: string) => {
+                defaultMouthImgUrl={index === 0 ? tranceAlfeMouth : ''}
+                onChange={(userId: string, imgUrl: string, mouthImgUrl?: string) => {
                   if (!userId || !imgUrl) return;
-                  userIdImgUrls.splice(index, 1, [userId, imgUrl]);
+                  userIdImgUrls.splice(index, 1, [userId, imgUrl, mouthImgUrl || '']);
                   setUserIdImgUrls(userIdImgUrls);
                   imgAvatarStyle({
                     imgIndex: `img${index}`,
+                    userId,
                     val: userIdImgUrls[index],
                     styles: userIdImgStyles,
                     setStyles: setUserIdImgStyles,
@@ -80,13 +85,14 @@ const CssMaker = () => {
                 }} />
             ))}
           </List>
-          <Button
-            disabled={isSolo}
-            onClick={() => {
-            setUserIdImgUrls([...userIdImgUrls, ['', '']]);
-          }}>
-            追加
-          </Button>
+          {!isSolo && (
+            <Button
+              onClick={() => {
+                setUserIdImgUrls([...userIdImgUrls, ['', '']]);
+              }}>
+              追加
+            </Button>
+          )}
         </InputArea>
 
         <Box sx={{ m: 1 }} />
@@ -106,7 +112,6 @@ const CssMaker = () => {
               ]} />
             <SliderListItem
               title={t("speed_of_movement")}
-              disabled={!activeMove}
               onChange={(val) => cssObj.iconSpeakingDuration({val, styles, setStyles})} />
           </List>
         </InputArea>

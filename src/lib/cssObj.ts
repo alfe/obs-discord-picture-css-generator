@@ -6,9 +6,10 @@ type StringValArg = {
   setStyles: React.Dispatch<React.SetStateAction<CustomStyle>>;
 };
 
-// アイコンの並び
-export const imgAvatarStyle = ({ imgIndex, val, styles, setStyles }: {
+// アバターの表示
+export const imgAvatarStyle = ({ imgIndex, userId = '739000000000000000', val, styles, setStyles }: {
   imgIndex: string;
+  userId: string;
   val: string[];
   styles: any;
   setStyles: React.Dispatch<React.SetStateAction<any>>;
@@ -24,7 +25,10 @@ export const imgAvatarStyle = ({ imgIndex, val, styles, setStyles }: {
       maxheight: '400px',
       borderRadius: '0',
       border: 'none',
-    }
+    },
+    [`${imgIndex}Speaking`]: {
+      animation: `750ms infinite alternate ease-in-out mouth-${userId}`,
+    },
   });
 };
 
@@ -94,6 +98,7 @@ const iconShape = ({ val, styles, setStyles }: StringValArg) => {
 const iconSpeaking = ({ val, styles, setStyles }: StringValArg) => {
   const { filter: _, ...avatar } = styles.avatar;
   const { position, animation, animationDuration, filter, borderColor, ...avatarSpeaking } = styles.avatarSpeaking;
+
   switch (val) {
     case 'light':
       setStyles({
@@ -105,9 +110,10 @@ const iconSpeaking = ({ val, styles, setStyles }: StringValArg) => {
         avatarSpeaking: {
           ...avatarSpeaking,
           position: 'relative',
-          animation: '300ms infinite alternate ease-in-out speak-light',
+          animation: '750ms infinite alternate ease-in-out speak-light',
           filter: 'brightness(100%)',
-          borderColor: 'rgba(255,255,255,.75)', // !important
+          border: 'none', // !important
+          animationDuration,
         }
       });
       break;
@@ -121,9 +127,9 @@ const iconSpeaking = ({ val, styles, setStyles }: StringValArg) => {
         avatarSpeaking: {
           ...avatarSpeaking,
           position: 'relative',
-          animation: '300ms infinite alternate ease-in-out speak-jump',
+          animation: '750ms infinite alternate ease-in-out speak-jump',
           filter: 'brightness(100%)',
-          borderColor: 'transparent', // !important
+          animationDuration,
         }
       });
       break;
@@ -137,8 +143,9 @@ const iconSpeaking = ({ val, styles, setStyles }: StringValArg) => {
         avatarSpeaking: {
           ...avatarSpeaking,
           position: 'relative',
+          animation: '0ms infinite alternate ease-in-out null',
           filter: 'brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581)',
-          borderColor: 'transparent', // !important
+          animationDuration,
         }
       });
       break;

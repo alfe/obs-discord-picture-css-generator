@@ -14,7 +14,8 @@
 
 .voice-container .voice-states .voice-state {
   height: 50px;
-  margin-bottom: 8px
+  margin-bottom: 8px;
+  cursor: pointer;
 }
 
 .voice-container .voice-states .voice-state .avatar {

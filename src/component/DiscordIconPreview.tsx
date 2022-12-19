@@ -18,11 +18,10 @@ export type CustomStyle = {
 export type DiscordIconPreviewProps = {
   styles: CustomStyle,
   isSolo: boolean;
-  userIdImgStyles: { [key: string]: {[key: string]: string} };
+  userIdImgStyles: { [key: string]: {[key: string]: string}};
 }
 
 const DiscordIconPreview = ({ styles, isSolo, userIdImgStyles }: DiscordIconPreviewProps) => {
-  const [speaking, setSpeaking] = React.useState(true);
   const { t } = useTranslation("translation", { keyPrefix: "preview" });
   return (
     <div id="app-mount">
@@ -32,11 +31,31 @@ const DiscordIconPreview = ({ styles, isSolo, userIdImgStyles }: DiscordIconPrev
       }} data-reactid=".0">
         <div className="voice-container" style={styles.voiceContainer} data-reactid=".0.0">
           <ul className="voice-states" style={styles.voiceStates} data-reactid=".0.0.0">
-            <User userId="739080466790875187" backgroundColor="#5865F2" styles={styles} img={blueIcon} userIdImgStyles={userIdImgStyles.img0} userName={t('user_click_to_switch')} speaking={speaking} onClick={() => setSpeaking(!speaking)} />
+            <User
+              userId="73000"
+              backgroundColor="#5865F2"
+              styles={styles}
+              img={blueIcon}
+              userIdImgStyles={userIdImgStyles?.img0}
+              userIdImgSpeakingAnimation={userIdImgStyles?.img0Speaking?.animation}
+              userName={t('user_click_to_switch')}
+            />
             {!isSolo && (
               <>
-                <User userId="739080466790875187" backgroundColor="#f7a000" styles={styles} img={greenIcon} userIdImgStyles={userIdImgStyles.img2} userName={t('user_always_talking')} speaking />
-                <User userId="739080466790875187" backgroundColor="#57F287" styles={styles} img={blueIcon} userIdImgStyles={userIdImgStyles.img1} userName={t('user_always_talking')} speaking />
+                <User userId="73000"
+                  backgroundColor="#57F287"
+                  styles={styles}
+                  img={blueIcon}
+                  userIdImgStyles={userIdImgStyles.img1}
+                  userIdImgSpeakingAnimation={userIdImgStyles?.img1Speaking?.animation}
+                  userName={t('user_always_talking')} />
+                <User userId="73000"
+                  backgroundColor="#f7a000"
+                  styles={styles}
+                  img={greenIcon}
+                  userIdImgStyles={userIdImgStyles.img2}
+                  userIdImgSpeakingAnimation={userIdImgStyles?.img2Speaking?.animation}
+                  userName={t('user_always_talking')} />
               </>
               )}
           </ul>
@@ -51,24 +70,28 @@ type UserProps = {
   userId: string;
   userName: string;
   backgroundColor: string;
-  speaking?: boolean;
   src?: string;
   img?: string;
-  onClick?: React.MouseEventHandler<HTMLLIElement>;
   styles: CustomStyle;
   userIdImgStyles: { [key: string]: string; };
+userIdImgSpeakingAnimation?: string;
 }
-const User = ({ userId, userName, speaking, src, img, onClick, styles, userIdImgStyles }: UserProps) => {
+const User = ({ userId, userName, src, img, styles, userIdImgStyles, userIdImgSpeakingAnimation }: UserProps) => {
+  const [speaking, setSpeaking] = React.useState(true);
   return (
-    <li className="voice-state" style={styles.voiceState} data-reactid={`.0.0.0.$${userId}/=1$${userId}`} onClick={onClick}>
+    <li className="voice-state" style={styles.voiceState} data-reactid={`.0.0.0.$${userId}/=1$${userId}`} onClick={() => setSpeaking(!speaking)}>
       <img
-        className={`avatar ${speaking ? 'speaking' : ''}`}
+        className={`avatar ${(speaking) ? 'speaking' : ''}`}
         src={src || DiscordIcon}
         style={{
           content: `url(${img})`,
           ...styles.avatar,
-          ...(speaking ? styles.avatarSpeaking : {}),
           ...userIdImgStyles,
+          ...((speaking) ? {
+            ...styles.avatarSpeaking,
+            animation: [styles.avatarSpeaking.animation || '', userIdImgSpeakingAnimation || ''].filter(a => !!a).join(', '),
+            animationDuration: styles.avatarSpeaking.animationDuration,
+          } : {}),
         }}
         data-reactid={`.0.0.0.$${userId}/=1$${userId}.$=10`} />
       <div className="user" data-reactid={`.0.0.0.$${userId}/=1$${userId}.$/=11`}>

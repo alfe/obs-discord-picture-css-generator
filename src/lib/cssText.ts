@@ -1,4 +1,5 @@
 import { CustomStyle } from "../component/DiscordIconPreview";
+import tranceAlfeMouth from '../component/img/trance_alfe_mouth.png';
 
 const toKebabCase = (string: string) => string
 .replace(/([a-z])([A-Z])/g, "$1-$2")
@@ -17,22 +18,36 @@ const toImportant = (property: string, className: string): string => {
 }
 
 export const getCssText = (styles: CustomStyle, userIdImgUrls: string[][], isSolo: boolean): string=> {
-  const imgSelectors = userIdImgUrls.map((val) => (`
-img[src*="avatars/${val[0]}"] {
-  content: url(${val[1]});
+  const imgSelectors = userIdImgUrls.filter(([userId, imgUrl]) => !!userId && !!imgUrl).map(([userId, imgUrl, mouthImgUrl]) => (`
+img[src*="avatars/${userId}"] {
+  content: url(${imgUrl});
   width: auto;
   height: auto;
   max-width: 400px;
   border-radius: 0;
   border: none;
+}${(!mouthImgUrl || mouthImgUrl === tranceAlfeMouth) ? '' : `
+img[src*="avatars/${userId}"][class*="Voice_avatarSpeaking__"] {
+  animation: ${styles.avatarSpeaking.animation}, 750ms infinite alternate ease-in-out mouth-${userId}; 
+  animation-duration: ${styles.avatarSpeaking.animationDuration}; 
+}`}`));
+
+  const imgAnimations = userIdImgUrls.filter((val) => val.length === 3).map(([userId, imgUrl, mouthImgUrl]) => (`
+@keyframes mouth-${userId} {
+  0% {}
+  50%{
+    content: url("${mouthImgUrl}");
+  }
+  100% {}
 }`));
+
   const imgSoloShowStyle = (!isSolo || (userIdImgUrls || []).length === 0) ? '' : `
 img:not([src*="avatars/${userIdImgUrls[0][0]}"]) {
-  display:none;
-}
-  `;
+  display: none;
+}`;
+
   return `body, #root, #root * {
-  overflow-y: hidden !important;
+  overflow: hidden !important;
 }
 ` + 
 (Object.keys(styles) as (keyof CustomStyle)[])
@@ -70,6 +85,6 @@ img:not([src*="avatars/${userIdImgUrls[0][0]}"]) {
   100% {
     bottom: 0px;
   }
-}`}
+}`}` + imgAnimations.join('') + `
 `;
 };

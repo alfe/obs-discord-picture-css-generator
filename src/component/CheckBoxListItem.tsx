@@ -9,7 +9,7 @@ export type CheckBoxListItemProps = {
   onChange: (value: boolean) => void;
 };
 const CheckBoxListItem = ({ title, onChange }: CheckBoxListItemProps) => {
-  const [value, setValue] = React.useState(false);
+  const [value, setValue] = React.useState(true);
   const handleChange = (_: any, val: boolean) => {
     if (typeof val !== 'boolean') return;
     setValue(val);
@@ -20,6 +20,7 @@ const CheckBoxListItem = ({ title, onChange }: CheckBoxListItemProps) => {
       <FormLabel component="legend">{title}</FormLabel>
       <Box>
         <Checkbox
+          defaultChecked
           value={value}
           onChange={handleChange} />
       </Box>

@@ -17,30 +17,27 @@ import Typography from '@mui/material/Typography';
 export type InputUserIdImgUrlFormProps = {
   defaultUserId?: string;
   defaultImgUrl?: string;
+  defaultMouthImgUrl?: string;
   hasHelp?: boolean;
-  onChange: (userId: string, imgUrl: string) => void;
+  onChange: (userId: string, imgUrl: string, mouthImgUrl: string) => void;
 };
-const InputUserIdImgUrlForm = ({ defaultUserId, defaultImgUrl, hasHelp, onChange }: InputUserIdImgUrlFormProps) => {
+const InputUserIdImgUrlForm = ({ defaultUserId, defaultImgUrl, defaultMouthImgUrl, hasHelp, onChange }: InputUserIdImgUrlFormProps) => {
   const [userId, setUserId] = React.useState(defaultUserId || '');
   const [imgUrl, setImgUrl] = React.useState(defaultImgUrl || '');
+  const [mouthImgUrl, setMouthImgUrl] = React.useState(defaultMouthImgUrl || '');
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    onChange(userId, imgUrl);
-  }, [userId, imgUrl])
+    onChange(userId, imgUrl, mouthImgUrl);
+  }, [userId, imgUrl, mouthImgUrl])
 
-  const handleUserIdChange: React.ChangeEventHandler<HTMLInputElement> = (event: React.ChangeEvent) => {
-    // @ts-ignore
-    if (!event?.target?.value) return;
-    // @ts-ignore
-    setUserId(event?.target?.value);
-  };
-  const handleImgUrl: React.ChangeEventHandler<HTMLInputElement> = (event: React.ChangeEvent) => {
-    // @ts-ignore
-    if (!event?.target?.value) return;
-    // @ts-ignore
-    setImgUrl(event?.target?.value);
-  };
+  // @ts-ignore
+  const handleUserIdChange = (event: React.ChangeEvent) => { setUserId(event?.target?.value || ''); };
+  // @ts-ignore
+  const handleImgUrl = (event: React.ChangeEvent) => { setImgUrl(event?.target?.value || ''); };
+  // @ts-ignore
+  const handleMouthImgUrl = (event: React.ChangeEvent) => { setMouthImgUrl(event?.target?.value || ''); };
+
   return (
     <>
       <ListItem
@@ -57,7 +54,23 @@ const InputUserIdImgUrlForm = ({ defaultUserId, defaultImgUrl, hasHelp, onChange
           ) : ''
         )} onChange={handleUserIdChange} InputLabelProps={{ shrink: true }} placeholder="739000000000000000" />
         <TextField label="画像URL" variant="outlined" onChange={handleImgUrl} InputLabelProps={{ shrink: true }} placeholder="https://example.com/image.jpg" />
+        <TextField
+          color="secondary"
+          sx={{ '.MuiInputBase-root.Mui-disabled': { backgroundColor: 'rgba(0, 0, 0, .2)'}}}
+          label="口パク画像URL"
+          variant="outlined"
+          onChange={handleMouthImgUrl}
+          disabled={!imgUrl || imgUrl === defaultImgUrl}
+          helperText="※ なくてもOK"
+          InputLabelProps={{ shrink: true }}
+          placeholder="https://example.com/image.jpg" />
       </ListItem>
+
+      <MouthAnimationStyle userId={userId} mouthImgUrl={
+        (imgUrl === defaultImgUrl ||
+          (imgUrl !== defaultImgUrl && mouthImgUrl !== defaultMouthImgUrl)
+        ) ? mouthImgUrl : ''} />
+
       <Dialog open={open} onClose={() => { setOpen(false) }}>
         <DialogTitle>DiscordユーザIDとは？</DialogTitle>
         <DialogContent>
@@ -114,3 +127,24 @@ const AboutDiscordUserIdDialogContent = () => {
     </>
   );
 }
+
+type MouthAnimationStyleProps = {
+  userId: string;
+  mouthImgUrl: string;
+};
+const MouthAnimationStyle = React.memo((props: MouthAnimationStyleProps) => {
+    if (!props.userId || !props.mouthImgUrl) return null;
+    return (
+      <style>
+        {`@keyframes mouth-${props.userId} {
+            0% {
+            }
+            50%{
+              content: url("${props.mouthImgUrl}")
+            }
+            100% {
+            }
+        }`}
+      </style>
+    );
+  }, (p, n) => p.userId === n.userId && p.mouthImgUrl === n.mouthImgUrl);
