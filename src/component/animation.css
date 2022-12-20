@@ -21,3 +21,14 @@
 		bottom: 0px;
 	}
 }
+@keyframes speak-border {
+	0% {
+		filter: brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581);
+	}
+	50% {
+		filter: brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581);
+	}
+	100% {
+		filter: brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581);
+	}
+}

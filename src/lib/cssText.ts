@@ -35,9 +35,7 @@ img[src*="avatars/${userId}"][class*="Voice_avatarSpeaking__"] {
   const imgAnimations = userIdImgUrls.filter((val) => val.length === 3).map(([userId, imgUrl, mouthImgUrl]) => (`
 @keyframes mouth-${userId} {
   0% {}
-  50%{
-    content: url("${mouthImgUrl}");
-  }
+  50%{ content: url("${mouthImgUrl}"); }
   100% {}
 }`));
 
@@ -53,38 +51,31 @@ img:not([src*="avatars/${userIdImgUrls[0][0]}"]) {
 (Object.keys(styles) as (keyof CustomStyle)[])
 .map((className) => (Object.keys(styles[className]).length === 0)
 ? ''
-: `[class*="Voice_${className}__"] {${Object
+: `
+[class*="Voice_${className}__"] {${Object
 .keys(styles[className])
 .map(k => `
   ${toKebabCase(k)}: ${styles[className][k]}${toImportant(k, className)};`)
 .join(` `)}
-}
-`)
+}`)
 .join(` `).trim()
 + imgSelectors.join('')
 + imgSoloShowStyle
 + `${!styles.avatarSpeaking?.animation?.includes('speak-light') ? '' : `
+@keyframes speak-border {
+	0% { filter: brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581); }
+	50% { filter: brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581); }
+	100% { filter: brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581); }
+}`}${!styles.avatarSpeaking?.animation?.includes('speak-light') ? '' : `
 @keyframes speak-light {
-  0% {
-    filter: drop-shadow(0 0 2px #ffffff);
-  }
-  50% {
-    filter: drop-shadow(0 0 8px #ffffff);
-  }
-  100% {
-    filter: drop-shadow(0 0 2px #ffffff);
-  }
+  0% { filter: drop-shadow(0 0 2px #ffffff); }
+  50% { filter: drop-shadow(0 0 8px #ffffff); }
+  100% { filter: drop-shadow(0 0 2px #ffffff); }
 }`}${!styles.avatarSpeaking?.animation?.includes('speak-jump') ? '' : `
 @keyframes speak-jump {
-  0% {
-    bottom: 0px;
-  }
-  50% {
-    bottom: 10px;
-  }
-  100% {
-    bottom: 0px;
-  }
+  0% { bottom: 0px; }
+  50% { bottom: 10px; }
+  100% { bottom: 0px; }
 }`}` + imgAnimations.join('') + `
 `;
 };

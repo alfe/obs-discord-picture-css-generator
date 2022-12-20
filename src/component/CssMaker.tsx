@@ -2,10 +2,10 @@ import React from 'react'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
 import { useTranslation } from "react-i18next";
-import cssObj, { imgAvatarStyle, setUsernameHidden, setUsernameHorizontal, setUsernameVertical } from '../lib/cssObj'
+import cssObj, { imgAvatarStyle, setIconSpeakingStyle, setUsernameHidden, setUsernameHorizontal, setUsernameVertical } from '../lib/cssObj'
 import { getCssText } from '../lib/cssText'
 import DiscordIconPreview, { CustomStyle } from './DiscordIconPreview'
-import SelectorListItem from './SelectorListItem'
+import SelectorToggleButtonGroup from './SelectorToggleButtonGroup'
 import InputArea from './InputArea'
 import SliderListItem from './SliderListItem'
 import CssString from './CssString';
@@ -98,10 +98,10 @@ const CssMaker = () => {
 
         <InputArea>
           <List>
-            <SelectorListItem
+            <SelectorToggleButtonGroup
               title={t("movement")}
               onChange={(val) => {
-                cssObj.iconSpeaking({val, styles, setStyles});
+                setIconSpeakingStyle({val, styles, setStyles});
               }}
               options={[
                 { value: 'border', label: t('border') },

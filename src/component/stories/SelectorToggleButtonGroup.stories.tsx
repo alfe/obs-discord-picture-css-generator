@@ -1,14 +1,14 @@
 import { Story } from "@storybook/react";
-import SelectorListItem, { SelectorListItemProps } from '../SelectorListItem';
+import SelectorToggleButtonGroup, { SelectorToggleButtonGroupProps } from '../SelectorToggleButtonGroup';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'component/SelectorListItem',
-  component: SelectorListItem,
+  title: 'component/SelectorToggleButtonGroup',
+  component: SelectorToggleButtonGroup,
 };
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: Story<SelectorListItemProps> = (args) => <SelectorListItem {...args} />;
+const Template: Story<SelectorToggleButtonGroupProps> = (args) => <SelectorToggleButtonGroup {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -5,20 +5,14 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 type Option = { label: string; value: string };
-export type SelectorListItemProps = {
+export type SelectorToggleButtonGroupProps = {
   title: string;
   options: Option[];
-  disabled?: boolean;
-  onChange: (value: string) => void;
+  onChange: (value: string[]) => void;
 };
-const SelectorListItem = ({ title, options, disabled, onChange }: SelectorListItemProps) => {
-  const [value, setValue] = React.useState(options[0].value || '');
-
-  React.useEffect(() => {
-    onChange(value);
-  }, [disabled])
-
-  const handleChange = (_: any, val: string) => {
+const SelectorToggleButtonGroup = ({ title, options, onChange }: SelectorToggleButtonGroupProps) => {
+  const [value, setValue] = React.useState<string[]>([options[0].value || '']);
+  const handleChange = (_: any, val: string[]) => {
     if (!val) return;
     setValue(val);
     onChange(val);
@@ -26,14 +20,12 @@ const SelectorListItem = ({ title, options, disabled, onChange }: SelectorListIt
   return (
     <ListItem
       divider
-      sx={{ display: 'flex', justifyContent: 'space-between', ...(disabled && { backgroundColor: '#DDD' }) }}
+      sx={{ display: 'flex', justifyContent: 'space-between' }}
     >
       <FormLabel component="legend">{title}</FormLabel>
       <ToggleButtonGroup
         color="primary"
         value={value}
-        disabled={disabled}
-        exclusive
         onChange={handleChange}>
         {(options || []).map((item: Option) => (
           <ToggleButton key={`${title}-${item.label}-${item.value}`} value={item.value}>{item.label}</ToggleButton>
@@ -42,4 +34,4 @@ const SelectorListItem = ({ title, options, disabled, onChange }: SelectorListIt
     </ListItem>
   );
 };
-export default SelectorListItem;
+export default SelectorToggleButtonGroup;
