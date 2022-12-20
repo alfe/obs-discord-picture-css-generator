@@ -13,6 +13,7 @@ export type CustomStyle = {
   voiceState: { [key: string]: string };
   avatar: { [key: string]: string };
   avatarSpeaking: { [key: string]: string };
+  user: { [key: string]: string };
   name: { [key: string]: string };
 }
 export type DiscordIconPreviewProps = {
@@ -94,7 +95,7 @@ const User = ({ userId, userName, src, img, styles, userIdImgStyles, userIdImgSp
           } : {}),
         }}
         data-reactid={`.0.0.0.$${userId}/=1$${userId}.$=10`} />
-      <div className="user" data-reactid={`.0.0.0.$${userId}/=1$${userId}.$/=11`}>
+      <div className="user" style={{ ...styles.user }}>
         <span
           className="name"
           style={{

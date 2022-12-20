@@ -177,6 +177,50 @@ const iconSpeakingDuration = ({ val, styles, setStyles }: StringValArg) => {
   }
 };
 
+export const setUsernameHidden = ({ val, styles, setStyles }: {
+  val: boolean;
+  styles: CustomStyle;
+  setStyles: React.Dispatch<React.SetStateAction<CustomStyle>>;
+}) => {
+  if (val) {
+    setStyles({
+      ...styles,
+      user: {},
+      name: { display: 'none' },
+    })
+  } else {
+    setStyles({
+      ...styles,
+      user: {
+        textAlign: 'center',
+      },
+      name: {
+        position: 'relative',
+        top: '0px',
+        left: '0px',
+      },
+    })
+  }
+}
+export const setUsernameHorizontal = ({ val, styles, setStyles }: StringValArg) => {
+  setStyles({
+    ...styles,
+    name: {
+      ...styles.name,
+      top: `${val}px`,
+    },
+  })
+}
+export const setUsernameVertical = ({ val, styles, setStyles }: StringValArg) => {
+  setStyles({
+    ...styles,
+    name: {
+      ...styles.name,
+      left: `${val}px`,
+    },
+  })
+}
+
 export default {
   iconRowGap,
   iconColumnGap,

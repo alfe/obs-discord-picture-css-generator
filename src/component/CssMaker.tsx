@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
 import { useTranslation } from "react-i18next";
-import cssObj, { imgAvatarStyle } from '../lib/cssObj'
+import cssObj, { imgAvatarStyle, setUsernameHidden, setUsernameHorizontal, setUsernameVertical } from '../lib/cssObj'
 import { getCssText } from '../lib/cssText'
 import DiscordIconPreview, { CustomStyle } from './DiscordIconPreview'
 import SelectorListItem from './SelectorListItem'
@@ -36,9 +36,8 @@ const CssMaker = () => {
       animation: '0ms infinite alternate ease-in-out null',
       filter: 'brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581)',
     },
-    name: {
-      display: 'none',
-    },
+    user: {},
+    name: { display: 'none' },
   });
   
   const [userIdImgStyles, setUserIdImgStyles] = React.useState({
@@ -48,8 +47,8 @@ const CssMaker = () => {
   });
 
   const [userIdImgUrls, setUserIdImgUrls] = React.useState<string[][]>([['', '', '']]);
-  const [activeMove, setActiveMove] = React.useState(false);
   const [isSolo, setIsSolo] = React.useState(true);
+  const [isHiddenName, setHiddenName] = React.useState(true);
   const { t } = useTranslation("translation", { keyPrefix: "css_maker" });
 
   return (
@@ -103,7 +102,6 @@ const CssMaker = () => {
               title={t("movement")}
               onChange={(val) => {
                 cssObj.iconSpeaking({val, styles, setStyles});
-                setActiveMove(val !== 'border');
               }}
               options={[
                 { value: 'border', label: t('border') },
@@ -113,6 +111,21 @@ const CssMaker = () => {
             <SliderListItem
               title={t("speed_of_movement")}
               onChange={(val) => cssObj.iconSpeakingDuration({val, styles, setStyles})} />
+
+            <CheckBoxListItem
+              title="名前を隠す"
+              onChange={(val: boolean) => {
+                setHiddenName(val);
+                setUsernameHidden({val, styles, setStyles});
+              }} />
+            {!isHiddenName && (<>
+              <SliderListItem
+                title={t("top_and_bottom")}
+                onChange={(val) => setUsernameHorizontal({val, styles, setStyles})} />
+              <SliderListItem
+                title={t("left_right")}
+                onChange={(val) => setUsernameVertical({val, styles, setStyles})} />
+            </>)}
           </List>
         </InputArea>
       </Grid>
