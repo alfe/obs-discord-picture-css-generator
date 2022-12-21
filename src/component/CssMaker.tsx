@@ -2,10 +2,10 @@ import React from 'react'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
 import { useTranslation } from "react-i18next";
-import cssObj, { imgAvatarStyle } from '../lib/cssObj'
+import cssObj, { imgAvatarStyle, setIconSpeakingStyle, setUsernameHidden, setUsernameHorizontal, setUsernameVertical } from '../lib/cssObj'
 import { getCssText } from '../lib/cssText'
 import DiscordIconPreview, { CustomStyle } from './DiscordIconPreview'
-import SelectorListItem from './SelectorListItem'
+import SelectorToggleButtonGroup from './SelectorToggleButtonGroup'
 import InputArea from './InputArea'
 import SliderListItem from './SliderListItem'
 import CssString from './CssString';
@@ -16,6 +16,8 @@ import Button from '@mui/material/Button';
 import CheckBoxListItem from './CheckBoxListItem';
 import tranceAlfe from './img/trance_alfe.png';
 import tranceAlfeMouth from './img/trance_alfe_mouth.png';
+import ColorPickerListItem from './ColorPickerListItem';
+import { getCssKeyFrames } from '../lib/cssKeyFrames';
 
 const CssMaker = () => {
   const [styles, setStyles] = React.useState<CustomStyle>({
@@ -34,11 +36,10 @@ const CssMaker = () => {
     avatarSpeaking: {
       position: 'relative',
       animation: '0ms infinite alternate ease-in-out null',
-      filter: 'brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581)',
+      filter: 'brightness(100%) drop-shadow(2px 2px 0px #FFFFFF) drop-shadow(-2px -2px 0px #FFFFFF) drop-shadow(-2px 2px 0px #FFFFFF) drop-shadow(2px -2px 0px #FFFFFF)',
     },
-    name: {
-      display: 'none',
-    },
+    user: {},
+    name: { display: 'none' },
   });
   
   const [userIdImgStyles, setUserIdImgStyles] = React.useState({
@@ -48,8 +49,10 @@ const CssMaker = () => {
   });
 
   const [userIdImgUrls, setUserIdImgUrls] = React.useState<string[][]>([['', '', '']]);
-  const [activeMove, setActiveMove] = React.useState(false);
+  const [speakingStyles, setSpeakingStyles] = React.useState(['border']);
+  const [animationColor, setAnimationColor] = React.useState('#FFFFFF');
   const [isSolo, setIsSolo] = React.useState(true);
+  const [isHiddenName, setHiddenName] = React.useState(true);
   const { t } = useTranslation("translation", { keyPrefix: "css_maker" });
 
   return (
@@ -94,16 +97,18 @@ const CssMaker = () => {
             </Button>
           )}
         </InputArea>
-
+        <AnimationStyle
+          speakingStyles={speakingStyles}
+          animationColor={animationColor} />
         <Box sx={{ m: 1 }} />
 
         <InputArea>
           <List>
-            <SelectorListItem
+            <SelectorToggleButtonGroup
               title={t("movement")}
               onChange={(val) => {
-                cssObj.iconSpeaking({val, styles, setStyles});
-                setActiveMove(val !== 'border');
+                setSpeakingStyles(val);
+                setIconSpeakingStyle({val, styles, setStyles});
               }}
               options={[
                 { value: 'border', label: t('border') },
@@ -113,6 +118,29 @@ const CssMaker = () => {
             <SliderListItem
               title={t("speed_of_movement")}
               onChange={(val) => cssObj.iconSpeakingDuration({val, styles, setStyles})} />
+            {(speakingStyles.includes('light') || speakingStyles.includes('border')) && (
+              <ColorPickerListItem
+                title="枠・後光の色"
+                defaultValue={animationColor}
+                onChange={(value) => {
+                  setAnimationColor(`${value}`);
+                }} />
+            )}
+
+            <CheckBoxListItem
+              title="名前を隠す"
+              onChange={(val: boolean) => {
+                setHiddenName(val);
+                setUsernameHidden({val, styles, setStyles});
+              }} />
+            {!isHiddenName && (<>
+              <SliderListItem
+                title={t("top_and_bottom")}
+                onChange={(val) => setUsernameHorizontal({val, styles, setStyles})} />
+              <SliderListItem
+                title={t("left_right")}
+                onChange={(val) => setUsernameVertical({val, styles, setStyles})} />
+            </>)}
           </List>
         </InputArea>
       </Grid>
@@ -120,9 +148,20 @@ const CssMaker = () => {
         <DiscordIconPreview isSolo={isSolo} styles={styles} userIdImgStyles={userIdImgStyles} />
       </Grid>
       <Grid item xs={12}>
-        <CssString value={getCssText(styles, userIdImgUrls, isSolo)} />
+        <CssString value={getCssText({ styles, userIdImgUrls, isSolo, speakingStyles, animationColor })} />
       </Grid>
     </Grid>
   );
 };
 export default CssMaker;
+
+type AnimationStyleProps = {
+  speakingStyles: string[];
+  animationColor: string;
+};
+const AnimationStyle = ((props: AnimationStyleProps) => {
+  if ((props.speakingStyles || []).length === 0 || !props.animationColor) return null;
+  return (
+    <><style>{getCssKeyFrames(props.speakingStyles, props.animationColor)}</style></>
+  );
+});

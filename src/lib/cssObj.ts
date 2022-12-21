@@ -5,6 +5,10 @@ type StringValArg = {
   styles: CustomStyle;
   setStyles: React.Dispatch<React.SetStateAction<CustomStyle>>;
 };
+type StyleInsetType = {
+  styles: CustomStyle;
+  setStyles: React.Dispatch<React.SetStateAction<CustomStyle>>;
+}
 
 // アバターの表示
 export const imgAvatarStyle = ({ imgIndex, userId = '739000000000000000', val, styles, setStyles }: {
@@ -95,61 +99,36 @@ const iconShape = ({ val, styles, setStyles }: StringValArg) => {
 };
 
 // 話すときの動き
-const iconSpeaking = ({ val, styles, setStyles }: StringValArg) => {
+export const setIconSpeakingStyle = ({ val, styles, setStyles }: StyleInsetType & { val: string[] }) => {
   const { filter: _, ...avatar } = styles.avatar;
   const { position, animation, animationDuration, filter, borderColor, ...avatarSpeaking } = styles.avatarSpeaking;
 
-  switch (val) {
-    case 'light':
-      setStyles({
-        ...styles,
-        avatar: {
-          ...avatar,
-          filter: 'brightness(70%)',
-        },
-        avatarSpeaking: {
-          ...avatarSpeaking,
-          position: 'relative',
-          animation: '750ms infinite alternate ease-in-out speak-light',
-          filter: 'brightness(100%)',
-          border: 'none', // !important
-          animationDuration,
-        }
-      });
-      break;
-    case 'jump':
-      setStyles({
-        ...styles,
-        avatar: {
-          ...avatar,
-          filter: 'brightness(70%)',
-        },
-        avatarSpeaking: {
-          ...avatarSpeaking,
-          position: 'relative',
-          animation: '750ms infinite alternate ease-in-out speak-jump',
-          filter: 'brightness(100%)',
-          animationDuration,
-        }
-      });
-      break;
-    default:
-      setStyles({
-        ...styles,
-        avatar: {
-          ...avatar,
-          filter: 'brightness(70%)',
-        },
-        avatarSpeaking: {
-          ...avatarSpeaking,
-          position: 'relative',
-          animation: '0ms infinite alternate ease-in-out null',
-          filter: 'brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581)',
-          animationDuration,
-        }
-      });
-      break;
-  }
+  const newAnimation = val.map((animationType: string) => {
+    switch (animationType) {
+      case 'border':
+        return '750ms infinite alternate ease-in-out speak-border';
+      case 'light':
+        return '750ms infinite alternate ease-in-out speak-light';
+      case 'jump':
+        return '750ms infinite alternate ease-in-out speak-jump';
+      default: return '';
+    }
+  })
+
+  setStyles({
+    ...styles,
+    avatar: {
+      ...avatar,
+      filter: 'brightness(70%)',
+    },
+    avatarSpeaking: {
+      ...avatarSpeaking,
+      position: 'relative',
+      filter: 'brightness(100%)',
+      ...(newAnimation.length === 0 ? '' : { animation: newAnimation.join(',')}),
+      animationDuration,
+    }
+  });
 }
 
 // 動きの速さ
@@ -177,10 +156,53 @@ const iconSpeakingDuration = ({ val, styles, setStyles }: StringValArg) => {
   }
 };
 
+export const setUsernameHidden = ({ val, styles, setStyles }: {
+  val: boolean;
+  styles: CustomStyle;
+  setStyles: React.Dispatch<React.SetStateAction<CustomStyle>>;
+}) => {
+  if (val) {
+    setStyles({
+      ...styles,
+      user: {},
+      name: { display: 'none' },
+    })
+  } else {
+    setStyles({
+      ...styles,
+      user: {
+        textAlign: 'center',
+      },
+      name: {
+        position: 'relative',
+        top: '0px',
+        left: '0px',
+      },
+    })
+  }
+}
+export const setUsernameHorizontal = ({ val, styles, setStyles }: StringValArg) => {
+  setStyles({
+    ...styles,
+    name: {
+      ...styles.name,
+      top: `${val}px`,
+    },
+  })
+}
+export const setUsernameVertical = ({ val, styles, setStyles }: StringValArg) => {
+  setStyles({
+    ...styles,
+    name: {
+      ...styles.name,
+      left: `${val}px`,
+    },
+  })
+}
+
 export default {
   iconRowGap,
   iconColumnGap,
   iconShape,
-  iconSpeaking,
   iconSpeakingDuration,
 };

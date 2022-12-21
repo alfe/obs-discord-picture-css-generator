@@ -1,6 +1,6 @@
 {
   "name": "obs-discord-picture-css-generator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generator to create custom CSS for displaying members as picture of Discord call in OBS Studio.",
   "keywords": [
     "obs",
@@ -36,6 +36,7 @@
     "@mui/styles": "5.11.0",
     "i18next": "^21.8.11",
     "i18next-browser-languagedetector": "^6.1.4",
+    "mui-color-input": "^1.0.3",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
