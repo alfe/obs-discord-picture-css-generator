@@ -16,6 +16,8 @@ import Button from '@mui/material/Button';
 import CheckBoxListItem from './CheckBoxListItem';
 import tranceAlfe from './img/trance_alfe.png';
 import tranceAlfeMouth from './img/trance_alfe_mouth.png';
+import ColorPickerListItem from './ColorPickerListItem';
+import { getCssKeyFrames } from '../lib/cssKeyFrames';
 
 const CssMaker = () => {
   const [styles, setStyles] = React.useState<CustomStyle>({
@@ -34,7 +36,7 @@ const CssMaker = () => {
     avatarSpeaking: {
       position: 'relative',
       animation: '0ms infinite alternate ease-in-out null',
-      filter: 'brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581)',
+      filter: 'brightness(100%) drop-shadow(2px 2px 0px #FFFFFF) drop-shadow(-2px -2px 0px #FFFFFF) drop-shadow(-2px 2px 0px #FFFFFF) drop-shadow(2px -2px 0px #FFFFFF)',
     },
     user: {},
     name: { display: 'none' },
@@ -47,6 +49,8 @@ const CssMaker = () => {
   });
 
   const [userIdImgUrls, setUserIdImgUrls] = React.useState<string[][]>([['', '', '']]);
+  const [speakingStyles, setSpeakingStyles] = React.useState(['border']);
+  const [animationColor, setAnimationColor] = React.useState('#FFFFFF');
   const [isSolo, setIsSolo] = React.useState(true);
   const [isHiddenName, setHiddenName] = React.useState(true);
   const { t } = useTranslation("translation", { keyPrefix: "css_maker" });
@@ -93,7 +97,9 @@ const CssMaker = () => {
             </Button>
           )}
         </InputArea>
-
+        <AnimationStyle
+          speakingStyles={speakingStyles}
+          animationColor={animationColor} />
         <Box sx={{ m: 1 }} />
 
         <InputArea>
@@ -101,6 +107,7 @@ const CssMaker = () => {
             <SelectorToggleButtonGroup
               title={t("movement")}
               onChange={(val) => {
+                setSpeakingStyles(val);
                 setIconSpeakingStyle({val, styles, setStyles});
               }}
               options={[
@@ -111,6 +118,14 @@ const CssMaker = () => {
             <SliderListItem
               title={t("speed_of_movement")}
               onChange={(val) => cssObj.iconSpeakingDuration({val, styles, setStyles})} />
+            {(speakingStyles.includes('light') || speakingStyles.includes('border')) && (
+              <ColorPickerListItem
+                title="枠・後光の色"
+                defaultValue={animationColor}
+                onChange={(value) => {
+                  setAnimationColor(`${value}`);
+                }} />
+            )}
 
             <CheckBoxListItem
               title="名前を隠す"
@@ -133,9 +148,20 @@ const CssMaker = () => {
         <DiscordIconPreview isSolo={isSolo} styles={styles} userIdImgStyles={userIdImgStyles} />
       </Grid>
       <Grid item xs={12}>
-        <CssString value={getCssText(styles, userIdImgUrls, isSolo)} />
+        <CssString value={getCssText({ styles, userIdImgUrls, isSolo, speakingStyles, animationColor })} />
       </Grid>
     </Grid>
   );
 };
 export default CssMaker;
+
+type AnimationStyleProps = {
+  speakingStyles: string[];
+  animationColor: string;
+};
+const AnimationStyle = ((props: AnimationStyleProps) => {
+  if ((props.speakingStyles || []).length === 0 || !props.animationColor) return null;
+  return (
+    <><style>{getCssKeyFrames(props.speakingStyles, props.animationColor)}</style></>
+  );
+});

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from "react-i18next";
-import './animation.css'
+// import './animation.css'
 import './Discord.css'
 // https://discord.com/branding
 import DiscordIcon from './Discord-icon.svg'

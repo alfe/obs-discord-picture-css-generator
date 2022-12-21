@@ -1,5 +1,6 @@
 import { CustomStyle } from "../component/DiscordIconPreview";
 import tranceAlfeMouth from '../component/img/trance_alfe_mouth.png';
+import { getCssKeyFrames } from "./cssKeyFrames";
 
 const toKebabCase = (string: string) => string
 .replace(/([a-z])([A-Z])/g, "$1-$2")
@@ -7,7 +8,6 @@ const toKebabCase = (string: string) => string
 .toLowerCase();
 
 const toImportant = (property: string, className: string): string => {
-  // console.log(property, className);
   switch (true) {
     case className === 'name' && property === 'backgroundColor':
       return ' !important';
@@ -17,7 +17,15 @@ const toImportant = (property: string, className: string): string => {
   }
 }
 
-export const getCssText = (styles: CustomStyle, userIdImgUrls: string[][], isSolo: boolean): string=> {
+export const getCssText = ({
+  styles, userIdImgUrls, isSolo, speakingStyles, animationColor,
+}: {
+  styles: CustomStyle;
+  userIdImgUrls: string[][];
+  isSolo: boolean;
+  speakingStyles: string[];
+  animationColor: string;
+}): string=> {
   const imgSelectors = userIdImgUrls.filter(([userId, imgUrl]) => !!userId && !!imgUrl).map(([userId, imgUrl, mouthImgUrl]) => (`
 img[src*="avatars/${userId}"] {
   content: url(${imgUrl});
@@ -44,7 +52,7 @@ img:not([src*="avatars/${userIdImgUrls[0][0]}"]) {
   display: none;
 }`;
 
-  return `body, #root, #root * {
+  return `body, #root {
   overflow: hidden !important;
 }
 ` + 
@@ -61,21 +69,7 @@ img:not([src*="avatars/${userIdImgUrls[0][0]}"]) {
 .join(` `).trim()
 + imgSelectors.join('')
 + imgSoloShowStyle
-+ `${!styles.avatarSpeaking?.animation?.includes('speak-light') ? '' : `
-@keyframes speak-border {
-	0% { filter: brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581); }
-	50% { filter: brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581); }
-	100% { filter: brightness(100%) drop-shadow(2px 2px 0px #43b581) drop-shadow(-2px -2px 0px #43b581) drop-shadow(-2px 2px 0px #43b581) drop-shadow(2px -2px 0px #43b581); }
-}`}${!styles.avatarSpeaking?.animation?.includes('speak-light') ? '' : `
-@keyframes speak-light {
-  0% { filter: drop-shadow(0 0 2px #ffffff); }
-  50% { filter: drop-shadow(0 0 8px #ffffff); }
-  100% { filter: drop-shadow(0 0 2px #ffffff); }
-}`}${!styles.avatarSpeaking?.animation?.includes('speak-jump') ? '' : `
-@keyframes speak-jump {
-  0% { bottom: 0px; }
-  50% { bottom: 10px; }
-  100% { bottom: 0px; }
-}`}` + imgAnimations.join('') + `
++ getCssKeyFrames(speakingStyles, animationColor)
++ imgAnimations.join('') + `
 `;
 };
