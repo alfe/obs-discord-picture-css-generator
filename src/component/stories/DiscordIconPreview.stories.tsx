@@ -18,6 +18,7 @@ Default.args = {
     voiceState: {},
     avatar: {},
     avatarSpeaking: {},
+    user: {},
     name: {},
   },
 };
