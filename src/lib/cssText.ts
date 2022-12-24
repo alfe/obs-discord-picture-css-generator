@@ -48,7 +48,7 @@ img[src*="avatars/${userId}"][class*="Voice_avatarSpeaking__"] {
 }`));
 
   const imgSoloShowStyle = (!isSolo || (userIdImgUrls || []).length === 0) ? '' : `
-img:not([src*="avatars/${userIdImgUrls[0][0]}"]) {
+img:not([src*="avatars/${userIdImgUrls[0][0]}"]), img:not([src*="avatars/${userIdImgUrls[0][0]}"]) + [class*="Voice_user__"] {
   display: none;
 }`;
 
