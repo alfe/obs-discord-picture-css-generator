@@ -195,7 +195,7 @@ const FoldingMenu = ({ title, children }: { title: string; children: React.React
         </Box>
       </ListItemButton>
       
-      <Box sx={!open ? { ml: 4 } : { display: 'none' }}>
+      <Box sx={!open ? { display: 'none' } : { ml: 4 }}>
         {children}
       </Box>
     </>
