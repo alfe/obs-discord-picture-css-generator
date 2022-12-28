@@ -1,27 +1,28 @@
 import React from 'react'
+import { useTranslation } from "react-i18next";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
-import { useTranslation } from "react-i18next";
+import ListItemButton from '@mui/material/ListItemButton';
+import Typography from '@mui/material/Typography';
 import cssObj, { imgAvatarStyle, setIconSpeakingStyle, setUsernameHidden, setUsernameHorizontal, setUsernameVertical } from '../lib/cssObj'
 import { getCssText } from '../lib/cssText'
+import { getCssKeyFrames } from '../lib/cssKeyFrames';
 import DiscordIconPreview, { CustomStyle } from './DiscordIconPreview'
 import SelectorToggleButtonGroup from './SelectorToggleButtonGroup'
 import InputArea from './InputArea'
 import SliderListItem from './SliderListItem'
 import CssString from './CssString';
 import InputUserIdImgUrlForm from './InputUserIdImgUrlForm';
-import Typography from '@mui/material/Typography';
-import { Box } from '@mui/system';
-import Button from '@mui/material/Button';
 import CheckBoxListItem from './CheckBoxListItem';
+import ColorPickerListItem from './ColorPickerListItem';
 import tranceAlfe from './img/trance_alfe.png';
 import tranceAlfeMouth from './img/trance_alfe_mouth.png';
-import ColorPickerListItem from './ColorPickerListItem';
-import { getCssKeyFrames } from '../lib/cssKeyFrames';
-import ListItemButton from '@mui/material/ListItemButton';
-import FormLabel from '@mui/material/FormLabel';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 const CssMaker = () => {
   const [styles, setStyles] = React.useState<CustomStyle>({
@@ -147,6 +148,9 @@ const CssMaker = () => {
                 title={t("left_right")}
                 onChange={(val) => setUsernameVertical({val, styles, setStyles})} />
             </>)}
+
+            <Divider />
+
             <FoldingMenu title="高度なオプション">
               <CheckBoxListItem title="画像の大きさを制限" onChange={(val => {
                 setIsHasMaxWidth(val)
@@ -182,7 +186,6 @@ const FoldingMenu = ({ title, children }: { title: string; children: React.React
   return (
     <>
       <ListItemButton
-        divider
         sx={{ display: 'flex', justifyContent: 'space-between' }}
         onClick={() => setOpen(!open)}
       >
@@ -192,7 +195,7 @@ const FoldingMenu = ({ title, children }: { title: string; children: React.React
         </Box>
       </ListItemButton>
       
-      <Box sx={!open ? {} : { display: 'none' }}>
+      <Box sx={!open ? { ml: 4 } : { display: 'none' }}>
         {children}
       </Box>
     </>

@@ -28,7 +28,7 @@ const ColorPickerListItem = ({ title, disabled, onChange, defaultValue }: ColorP
   }
 
   return (
-    <ListItem divider sx={{ display: 'flex', justifyContent: 'space-between' }}
+    <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}
     >
       <FormLabel component="legend">{title}</FormLabel>
       <Box sx={{ width: 250 }}>
