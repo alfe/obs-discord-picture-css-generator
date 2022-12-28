@@ -18,20 +18,21 @@ const toImportant = (property: string, className: string): string => {
 }
 
 export const getCssText = ({
-  styles, userIdImgUrls, isSolo, speakingStyles, animationColor,
+  styles, userIdImgUrls, isSolo, speakingStyles, animationColor, isHasMaxWidth,
 }: {
   styles: CustomStyle;
   userIdImgUrls: string[][];
   isSolo: boolean;
   speakingStyles: string[];
   animationColor: string;
+  isHasMaxWidth: boolean;
 }): string=> {
   const imgSelectors = userIdImgUrls.filter(([userId, imgUrl]) => !!userId && !!imgUrl).map(([userId, imgUrl, mouthImgUrl]) => (`
 img[src*="avatars/${userId}"] {
   content: url(${imgUrl});
   width: auto;
-  height: auto;
-  max-width: 400px;
+  height: auto;${!isHasMaxWidth ? '' : `
+  max-width: 400px;`}
   border-radius: 0;
   border: none;
 }${(!mouthImgUrl || mouthImgUrl === tranceAlfeMouth) ? '' : `

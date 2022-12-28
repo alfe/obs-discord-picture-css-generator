@@ -1,23 +1,28 @@
 import React from 'react'
+import { useTranslation } from "react-i18next";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
-import { useTranslation } from "react-i18next";
+import ListItemButton from '@mui/material/ListItemButton';
+import Typography from '@mui/material/Typography';
 import cssObj, { imgAvatarStyle, setIconSpeakingStyle, setUsernameHidden, setUsernameHorizontal, setUsernameVertical } from '../lib/cssObj'
 import { getCssText } from '../lib/cssText'
+import { getCssKeyFrames } from '../lib/cssKeyFrames';
 import DiscordIconPreview, { CustomStyle } from './DiscordIconPreview'
 import SelectorToggleButtonGroup from './SelectorToggleButtonGroup'
 import InputArea from './InputArea'
 import SliderListItem from './SliderListItem'
 import CssString from './CssString';
 import InputUserIdImgUrlForm from './InputUserIdImgUrlForm';
-import Typography from '@mui/material/Typography';
-import { Box } from '@mui/system';
-import Button from '@mui/material/Button';
 import CheckBoxListItem from './CheckBoxListItem';
+import ColorPickerListItem from './ColorPickerListItem';
 import tranceAlfe from './img/trance_alfe.png';
 import tranceAlfeMouth from './img/trance_alfe_mouth.png';
-import ColorPickerListItem from './ColorPickerListItem';
-import { getCssKeyFrames } from '../lib/cssKeyFrames';
 
 const CssMaker = () => {
   const [styles, setStyles] = React.useState<CustomStyle>({
@@ -52,6 +57,7 @@ const CssMaker = () => {
   const [speakingStyles, setSpeakingStyles] = React.useState(['border']);
   const [animationColor, setAnimationColor] = React.useState('#FFFFFF');
   const [isSolo, setIsSolo] = React.useState(true);
+  const [isHasMaxWidth, setIsHasMaxWidth] = React.useState(true);
   const [isHiddenName, setHiddenName] = React.useState(true);
   const { t } = useTranslation("translation", { keyPrefix: "css_maker" });
 
@@ -81,6 +87,7 @@ const CssMaker = () => {
                   imgAvatarStyle({
                     imgIndex: `img${index}`,
                     userId,
+                    isHasMaxWidth,
                     val: userIdImgUrls[index],
                     styles: userIdImgStyles,
                     setStyles: setUserIdImgStyles,
@@ -141,6 +148,14 @@ const CssMaker = () => {
                 title={t("left_right")}
                 onChange={(val) => setUsernameVertical({val, styles, setStyles})} />
             </>)}
+
+            <Divider />
+
+            <FoldingMenu title="高度なオプション">
+              <CheckBoxListItem title="画像の大きさを制限" onChange={(val => {
+                setIsHasMaxWidth(val)
+              })}/>
+            </FoldingMenu>
           </List>
         </InputArea>
       </Grid>
@@ -148,7 +163,7 @@ const CssMaker = () => {
         <DiscordIconPreview isSolo={isSolo} styles={styles} userIdImgStyles={userIdImgStyles} />
       </Grid>
       <Grid item xs={12}>
-        <CssString value={getCssText({ styles, userIdImgUrls, isSolo, speakingStyles, animationColor })} />
+        <CssString value={getCssText({ styles, userIdImgUrls, isSolo, speakingStyles, animationColor, isHasMaxWidth })} />
       </Grid>
     </Grid>
   );
@@ -165,3 +180,24 @@ const AnimationStyle = ((props: AnimationStyleProps) => {
     <><style>{getCssKeyFrames(props.speakingStyles, props.animationColor)}</style></>
   );
 });
+
+const FoldingMenu = ({ title, children }: { title: string; children: React.ReactNode; }) => {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <ListItemButton
+        sx={{ display: 'flex', justifyContent: 'space-between' }}
+        onClick={() => setOpen(!open)}
+      >
+        <FormLabel component="legend">{title}</FormLabel>
+        <Box sx={{ width: 250, textAlign: 'right' }}>
+          {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+        </Box>
+      </ListItemButton>
+      
+      <Box sx={!open ? { ml: 4 } : { display: 'none' }}>
+        {children}
+      </Box>
+    </>
+  );
+}

@@ -16,7 +16,7 @@ const CheckBoxListItem = ({ title, onChange }: CheckBoxListItemProps) => {
     onChange(val);
   };
   return (
-    <ListItem divider sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+    <ListItem sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
       <FormLabel component="legend">{title}</FormLabel>
       <Box>
         <Checkbox

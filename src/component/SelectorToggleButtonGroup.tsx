@@ -18,10 +18,7 @@ const SelectorToggleButtonGroup = ({ title, options, onChange }: SelectorToggleB
     onChange(val);
   };
   return (
-    <ListItem
-      divider
-      sx={{ display: 'flex', justifyContent: 'space-between' }}
-    >
+    <ListItem sx={{ display: 'flex', justifyContent: 'space-between' }}>
       <FormLabel component="legend">{title}</FormLabel>
       <ToggleButtonGroup
         color="primary"
