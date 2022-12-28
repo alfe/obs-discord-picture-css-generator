@@ -11,9 +11,10 @@ type StyleInsetType = {
 }
 
 // アバターの表示
-export const imgAvatarStyle = ({ imgIndex, userId = '739000000000000000', val, styles, setStyles }: {
+export const imgAvatarStyle = ({ imgIndex, userId = '739000000000000000', isHasMaxWidth, val, styles, setStyles }: {
   imgIndex: string;
   userId: string;
+  isHasMaxWidth: boolean;
   val: string[];
   styles: any;
   setStyles: React.Dispatch<React.SetStateAction<any>>;
@@ -25,8 +26,10 @@ export const imgAvatarStyle = ({ imgIndex, userId = '739000000000000000', val, s
       content: `url(${val[1]})`,
       height: 'auto',
       width: 'auto',
-      maxWidth: '400px',
-      maxheight: '400px',
+      ...(isHasMaxWidth ? {
+        maxWidth: '400px',
+        maxheight: '400px',
+      }: {}),
       borderRadius: '0',
       border: 'none',
     },
