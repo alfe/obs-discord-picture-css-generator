@@ -34,6 +34,7 @@ const CssMaker = () => {
     },
     voiceState: {
       height: 'auto',
+      marginBottom: '0px',
     },
     avatar: {
       filter: 'brightness(70%)',
