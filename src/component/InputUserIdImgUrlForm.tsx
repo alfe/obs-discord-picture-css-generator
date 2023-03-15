@@ -53,7 +53,13 @@ const InputUserIdImgUrlForm = ({ defaultUserId, defaultImgUrl, defaultMouthImgUr
             </Box>
           ) : ''
         )} onChange={handleUserIdChange} InputLabelProps={{ shrink: true }} placeholder="739000000000000000" />
-        <TextField label="画像URL" variant="outlined" onChange={handleImgUrl} InputLabelProps={{ shrink: true }} placeholder="https://example.com/image.jpg" />
+        <TextField
+          label="画像URL"
+          variant="outlined"
+          onChange={handleImgUrl}
+          InputLabelProps={{ shrink: true }}
+          helperText="Discordに貼った画像のURL"
+          placeholder="https://cdn.discordapp.com/.../image.jpg" />
         <TextField
           color="secondary"
           sx={{ '.MuiInputBase-root.Mui-disabled': { backgroundColor: 'rgba(0, 0, 0, .2)'}}}
