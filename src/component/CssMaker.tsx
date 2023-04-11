@@ -59,6 +59,7 @@ const CssMaker = () => {
   const [animationColor, setAnimationColor] = React.useState('#FFFFFF');
   const [isSolo, setIsSolo] = React.useState(true);
   const [isHasMaxWidth, setIsHasMaxWidth] = React.useState(true);
+  const [isNotSetShow, setIsNotSetShow] = React.useState(false);
   const [isHiddenName, setHiddenName] = React.useState(true);
   const { t } = useTranslation("translation", { keyPrefix: "css_maker" });
 
@@ -156,6 +157,9 @@ const CssMaker = () => {
               <CheckBoxListItem title="画像の大きさを制限" onChange={(val => {
                 setIsHasMaxWidth(val)
               })}/>
+              <CheckBoxListItem title="立ち絵未設定の人を表示" disabled={isSolo} onChange={(val => {
+                setIsNotSetShow(val)
+              })}/>
             </FoldingMenu>
           </List>
         </InputArea>
@@ -164,7 +168,16 @@ const CssMaker = () => {
         <DiscordIconPreview isSolo={isSolo} styles={styles} userIdImgStyles={userIdImgStyles} />
       </Grid>
       <Grid item xs={12}>
-        <CssString value={getCssText({ styles, userIdImgUrls, isSolo, speakingStyles, animationColor, isHasMaxWidth })} />
+        <CssString value={
+          getCssText({
+            styles,
+            userIdImgUrls,
+            isSolo,
+            speakingStyles,
+            animationColor,
+            isHasMaxWidth,
+            isNotSetShow,
+          })} />
       </Grid>
     </Grid>
   );

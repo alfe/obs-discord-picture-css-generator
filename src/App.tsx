@@ -69,7 +69,7 @@ const Header = () => {
             <>{t("title_anno")}</>
           </Typography>
           <Typography align="center" paragraph variant="caption">
-            <>※ 2022.12.21 複数の動きを同時選択できるようになりました</> / 
+            <>※ 2023.04.11 立ち絵未設定の人の表示/非表示を切替できるようにしました</> / 
             <a href="https://obs-discord-icon.alfebelow.com/">アイコンに見た目に変えたいときはこちら</a> /
             <a href="https://obs-discord-text.alfebelow.com/">テキストチャンネルの見た目を変えたいときはこちら</a>
           </Typography>

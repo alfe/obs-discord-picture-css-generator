@@ -18,7 +18,7 @@ const toImportant = (property: string, className: string): string => {
 }
 
 export const getCssText = ({
-  styles, userIdImgUrls, isSolo, speakingStyles, animationColor, isHasMaxWidth,
+  styles, userIdImgUrls, isSolo, speakingStyles, animationColor, isHasMaxWidth,isNotSetShow,
 }: {
   styles: CustomStyle;
   userIdImgUrls: string[][];
@@ -26,10 +26,16 @@ export const getCssText = ({
   speakingStyles: string[];
   animationColor: string;
   isHasMaxWidth: boolean;
+isNotSetShow: boolean;
 }): string=> {
   const imgSelectors = userIdImgUrls.filter(([userId, imgUrl]) => !!userId && !!imgUrl).map(([userId, imgUrl, mouthImgUrl]) => (`
-img[src*="avatars/${userId}"] {
+${(isNotSetShow) ? '' : `
+img {
+  display: none;
+}
+`}img[src*="avatars/${userId}"] {
   content: url(${imgUrl});
+  display: block;
   width: auto;
   height: auto;${!isHasMaxWidth ? '' : `
   max-width: 400px;`}

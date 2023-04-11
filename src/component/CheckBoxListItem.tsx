@@ -6,9 +6,10 @@ import Checkbox from '@mui/material/Checkbox';
 
 export type CheckBoxListItemProps = {
   title: string;
+  disabled?: boolean;
   onChange: (value: boolean) => void;
 };
-const CheckBoxListItem = ({ title, onChange }: CheckBoxListItemProps) => {
+const CheckBoxListItem = ({ title, disabled, onChange }: CheckBoxListItemProps) => {
   const [value, setValue] = React.useState(true);
   const handleChange = (_: any, val: boolean) => {
     if (typeof val !== 'boolean') return;
@@ -22,6 +23,7 @@ const CheckBoxListItem = ({ title, onChange }: CheckBoxListItemProps) => {
         <Checkbox
           defaultChecked
           value={value}
+          disabled={disabled}
           onChange={handleChange} />
       </Box>
     </ListItem>
