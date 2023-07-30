@@ -47,14 +47,14 @@ const DiscordIconPreview = ({ styles, isSolo, userIdImgStyles }: DiscordIconPrev
                   backgroundColor="#57F287"
                   styles={styles}
                   img={blueIcon}
-                  userIdImgStyles={userIdImgStyles.img1}
+                  userIdImgStyles={userIdImgStyles?.img1}
                   userIdImgSpeakingAnimation={userIdImgStyles?.img1Speaking?.animation}
                   userName={t('user_always_talking')} />
                 <User userId="73000"
                   backgroundColor="#f7a000"
                   styles={styles}
                   img={greenIcon}
-                  userIdImgStyles={userIdImgStyles.img2}
+                  userIdImgStyles={userIdImgStyles?.img2}
                   userIdImgSpeakingAnimation={userIdImgStyles?.img2Speaking?.animation}
                   userName={t('user_always_talking')} />
               </>
