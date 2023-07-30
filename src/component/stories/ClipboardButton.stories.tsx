@@ -1,13 +1,10 @@
-import { Story } from "@storybook/react";
-import ClipboardButton, { ClipboardButtonProps } from '../ClipboardButton';
+import { Meta, StoryObj } from '@storybook/react'
+import ClipboardButton from '../ClipboardButton';
 
-export default {
-  title: 'component/ClipboardButton',
-  component: ClipboardButton,
-};
-const Template: Story<ClipboardButtonProps> = (args) => <ClipboardButton {...args} />;
+export default { component: ClipboardButton } as Meta;
 
-export const Default = Template.bind({});
-Default.args = {
-  value: `copied text`
+export const Default: StoryObj = {
+  args: {
+    value: `copied text`
+  },
 };
