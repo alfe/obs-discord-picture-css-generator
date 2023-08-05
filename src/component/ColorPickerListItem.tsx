@@ -7,7 +7,6 @@ import {
 import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
 import ListItem from '@mui/material/ListItem';
-import Slider from '@mui/material/Slider';
 
 export type ColorPickerListItemProps = {
   title: string;
@@ -33,6 +32,7 @@ const ColorPickerListItem = ({ title, disabled, onChange, defaultValue }: ColorP
       <FormLabel component="legend">{title}</FormLabel>
       <Box sx={{ width: 250 }}>
         <MuiColorInput
+          format="hex"
           value={value}
           disabled={disabled}
           onChange={handleChange} />

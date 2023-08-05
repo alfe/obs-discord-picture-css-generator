@@ -11,7 +11,7 @@ export type SelectorToggleButtonGroupProps = {
   onChange: (value: string[]) => void;
 };
 const SelectorToggleButtonGroup = ({ title, options, onChange }: SelectorToggleButtonGroupProps) => {
-  const [value, setValue] = React.useState<string[]>([options[0].value || '']);
+  const [value, setValue] = React.useState<string[]>([]);
   const handleChange = (_: any, val: string[]) => {
     if (!val) return;
     setValue(val);

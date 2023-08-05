@@ -42,7 +42,7 @@ const CssMaker = () => {
     avatarSpeaking: {
       position: 'relative',
       animation: '0ms infinite alternate ease-in-out null',
-      filter: 'brightness(100%) drop-shadow(2px 2px 0px #FFFFFF) drop-shadow(-2px -2px 0px #FFFFFF) drop-shadow(-2px 2px 0px #FFFFFF) drop-shadow(2px -2px 0px #FFFFFF)',
+      filter: 'brightness(100%)',
     },
     user: {},
     name: { display: 'none' },
@@ -55,7 +55,7 @@ const CssMaker = () => {
   });
 
   const [userIdImgUrls, setUserIdImgUrls] = React.useState<string[][]>([['', '', '']]);
-  const [speakingStyles, setSpeakingStyles] = React.useState(['border']);
+  const [speakingStyles, setSpeakingStyles] = React.useState<string[]>([]);
   const [animationColor, setAnimationColor] = React.useState('#FFFFFF');
   const [isSolo, setIsSolo] = React.useState(true);
   const [isHasMaxWidth, setIsHasMaxWidth] = React.useState(true);
@@ -132,6 +132,7 @@ const CssMaker = () => {
                 title="枠・後光の色"
                 defaultValue={animationColor}
                 onChange={(value) => {
+                  console.log(value);
                   setAnimationColor(`${value}`);
                 }} />
             )}
@@ -189,6 +190,7 @@ type AnimationStyleProps = {
   animationColor: string;
 };
 const AnimationStyle = ((props: AnimationStyleProps) => {
+  console.log(props);
   if ((props.speakingStyles || []).length === 0 || !props.animationColor) return null;
   return (
     <><style>{getCssKeyFrames(props.speakingStyles, props.animationColor)}</style></>
