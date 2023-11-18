@@ -1,6 +1,6 @@
 {
   "name": "obs-discord-picture-css-generator",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Generator to create custom CSS for displaying members as picture of Discord call in OBS Studio.",
   "keywords": [
     "obs",
@@ -14,7 +14,7 @@
     "url": "https://alfebelow.com/"
   },
   "license": "MIT",
-  "homepage": "https://obs-discord-icon.alfebelow.com/",
+  "homepage": "https://obs-discord-picture.alfebelow.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/alfe/obs-discord-picture-css-generator"
