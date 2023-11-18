@@ -33,16 +33,6 @@ const TutorialButton = () => {
           <>{t("how_to_use")}</>
         </DialogTitle>
         <DialogContent>
-          {i18n.language!=="ja" && (
-            <Box sx={{ textAlign: 'center', padding: 6, mt: 4, border: '2px solid coral' }}>
-              <Typography variant="h5" paragraph sx={{ m: 0 }}>
-                please see English introduction by <Link href="https://gigazine.net/gsc_news/en/20220517-obs-discord-icon-generator/" target='_blank'>
-                  GIGAZINE
-                </Link>
-              </Typography>
-            </Box>
-          )}
-
           <h2>1. OBSのソースにブラウザを追加</h2>
           <p>OBSを起動
           <br />OBSのシーンを選択後、「ソース」欄で右クリックしてブラウザを追加</p>
