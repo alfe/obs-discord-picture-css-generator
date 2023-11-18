@@ -69,6 +69,8 @@ const Header = () => {
             <>{t("title_anno")}</>
           </Typography>
           <Typography align="center" paragraph variant="caption">
+            ※ 2023.11.18 画像URLを変更しやすいような出力に & 枠線を半透明にできるようにしました。
+            <br />
             <a href="https://obs-discord-icon.alfebelow.com/">アイコンに見た目に変えたいときはこちら</a> /
             <a href="https://obs-discord-text.alfebelow.com/">テキストチャンネルの見た目を変えたいときはこちら</a>
           </Typography>

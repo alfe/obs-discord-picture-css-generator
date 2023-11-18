@@ -64,7 +64,7 @@ const InputUserIdImgUrlForm = ({ name, hasHelp, onChange }: InputUserIdImgUrlFor
         sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', columnGap: 2 }}
       >
         <TextField
-          label="DiscordユーザID"
+          label="DiscordユーザID *"
           sx={{ width: '12rem' }}
           variant="outlined"
           helperText={hasHelp ? (<WhatIsDiscordUserIdButton />) : ''}
@@ -90,7 +90,7 @@ const InputUserIdImgUrlForm = ({ name, hasHelp, onChange }: InputUserIdImgUrlFor
         }}
       >
         <TextField
-          label="画像URL"
+          label="画像URL *"
           fullWidth
           variant="outlined"
           value={imgUrl}
