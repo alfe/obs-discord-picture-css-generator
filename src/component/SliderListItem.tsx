@@ -6,19 +6,20 @@ import Slider from '@mui/material/Slider';
 
 export type SliderListItemProps = {
   title: string;
+  name?: string;
   disabled?: boolean;
   onChange: (value: string) => void;
   min?: number;
   max?: number;
 };
-const SliderListItem = ({ title, disabled, onChange, min, max }: SliderListItemProps) => {
+const SliderListItem = ({ title, name, disabled, onChange, min, max }: SliderListItemProps) => {
   const [value, setValue] = React.useState(0);
 
   React.useEffect(() => {
     onChange(`${value}`);
   }, [disabled])
 
-  const handleChange = (_: any, val: number | number[], activeThumb: number) => {
+  const handleChange = (_: any, val: number | number[]) => {
     if (typeof val !== 'number') return;
     setValue(val);
     onChange(`${val}`);

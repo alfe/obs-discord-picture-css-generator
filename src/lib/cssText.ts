@@ -26,15 +26,25 @@ export const getCssText = ({
   speakingStyles: string[];
   animationColor: string;
   isHasMaxWidth: boolean;
-isNotSetShow: boolean;
+  isNotSetShow: boolean;
 }): string=> {
-  const imgSelectors = userIdImgUrls.filter(([userId, imgUrl]) => !!userId && !!imgUrl).map(([userId, imgUrl, mouthImgUrl]) => (`
+  const urlVariants: string[] = [];
+  const imgSelectors = userIdImgUrls
+    .filter(([userId, imgUrl]) => !!userId && !!imgUrl && userId !== '000000000000000000')
+    .map(([userId, imgUrl, mouthImgUrl, memo]) => {
+    urlVariants.push(`
+  /* ${userId} ${memo} */
+  --img-stand-url-${userId}: url("${imgUrl}");
+  --img-mouth-url-${userId}: url("${mouthImgUrl}");
+`);
+    return (`
 ${(isNotSetShow) ? '' : `
 img {
   display: none;
 }
-`}img[src*="avatars/${userId}"] {
-  content: url(${imgUrl});
+`}
+img[src*="avatars/${userId}"] {
+  content: var(--img-stand-url-${userId});
   display: block;
   width: auto;
   height: auto;${!isHasMaxWidth ? '' : `
@@ -43,14 +53,18 @@ img {
   border: none;
 }${(!mouthImgUrl || mouthImgUrl === tranceAlfeMouth) ? '' : `
 img[src*="avatars/${userId}"][class*="Voice_avatarSpeaking__"] {
-  animation: ${styles.avatarSpeaking.animation}, 750ms infinite alternate ease-in-out mouth-${userId}; 
-  animation-duration: ${styles.avatarSpeaking.animationDuration}; 
-}`}`));
+  animation: ${styles.avatarSpeaking.animation}, ${styles.avatarSpeaking.animationDuration || '750ms'} infinite alternate ease-in-out mouth-${userId};
+}`}`);
+  }
+).join('');
 
-  const imgAnimations = userIdImgUrls.filter((val) => val.length === 3).map(([userId, imgUrl, mouthImgUrl]) => (`
+
+  const imgAnimations = userIdImgUrls
+    .filter(([userId, imgUrl, mouthImgUrl]) => !!userId && !!mouthImgUrl && userId !== '000000000000000000')
+    .map(([userId, imgUrl, mouthImgUrl]) => (`
 @keyframes mouth-${userId} {
   0% {}
-  50%{ content: url("${mouthImgUrl}"); }
+  50%{ content: var(--img-mouth-url-${userId}); }
   100% {}
 }`));
 
@@ -59,7 +73,8 @@ img:not([src*="avatars/${userIdImgUrls[0][0]}"]), img:not([src*="avatars/${userI
   display: none;
 }`;
 
-  return `body, #root {
+  return `:root {${urlVariants.join('')}}
+body, #root {
   overflow: hidden !important;
 }
 ` + 
@@ -74,7 +89,7 @@ img:not([src*="avatars/${userIdImgUrls[0][0]}"]), img:not([src*="avatars/${userI
 .join(` `)}
 }`)
 .join(` `).trim()
-+ imgSelectors.join('')
++ imgSelectors
 + imgSoloShowStyle
 + getCssKeyFrames(speakingStyles, animationColor)
 + imgAnimations.join('') + `

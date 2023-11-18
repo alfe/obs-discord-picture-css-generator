@@ -43,6 +43,7 @@ const CssMaker = () => {
       position: 'relative',
       animation: '0ms infinite alternate ease-in-out null',
       filter: 'brightness(100%)',
+      animationDuration: `750ms`,
     },
     user: {},
     name: { display: 'none' },
@@ -55,13 +56,17 @@ const CssMaker = () => {
   });
 
   const [userIdImgUrls, setUserIdImgUrls] = React.useState<string[][]>([['', '', '']]);
-  const [speakingStyles, setSpeakingStyles] = React.useState<string[]>([]);
+  const [speakingStyles, setSpeakingStyles] = React.useState<string[]>(JSON.parse(localStorage.getItem('movement') || '["light","jump"]'));
   const [animationColor, setAnimationColor] = React.useState('#FFFFFF');
   const [isSolo, setIsSolo] = React.useState(true);
   const [isHasMaxWidth, setIsHasMaxWidth] = React.useState(true);
   const [isNotSetShow, setIsNotSetShow] = React.useState(false);
   const [isHiddenName, setHiddenName] = React.useState(true);
   const { t } = useTranslation("translation", { keyPrefix: "css_maker" });
+
+  React.useEffect(() => {
+    setIconSpeakingStyle({ val: speakingStyles, styles, setStyles });
+  }, []);
 
   return (
     <Grid container spacing={2}>
@@ -78,13 +83,13 @@ const CssMaker = () => {
             {userIdImgUrls.map((_: any, index: number) => (
               <InputUserIdImgUrlForm
                 key={`id-url-forms-${index}`}
+                name={`id-url-forms-${index}`}
                 hasHelp={index === 0}
-                defaultUserId={index === 0 ? '739000000000000000' : ''}
-                defaultImgUrl={index === 0 ? tranceAlfe : ''}
-                defaultMouthImgUrl={index === 0 ? tranceAlfeMouth : ''}
-                onChange={(userId: string, imgUrl: string, mouthImgUrl?: string) => {
-                  if (!userId || !imgUrl) return;
-                  userIdImgUrls.splice(index, 1, [userId, imgUrl, mouthImgUrl || '']);
+                onChange={(userId: string, imgUrl: string, mouthImgUrl: string, memo: string) => {
+                  console.log(`${userId},${imgUrl},${mouthImgUrl}, ${memo}`);
+                  if (!userId) userId = '000000000000000000'
+                  if (!imgUrl || imgUrl.length === 0) imgUrl = tranceAlfe
+                  userIdImgUrls.splice(index, 1, [userId, imgUrl, mouthImgUrl || '', memo || '']);
                   setUserIdImgUrls(userIdImgUrls);
                   imgAvatarStyle({
                     imgIndex: `img${index}`,
@@ -115,6 +120,8 @@ const CssMaker = () => {
           <List>
             <SelectorToggleButtonGroup
               title={t("movement")}
+              name="movement"
+              value={speakingStyles}
               onChange={(val) => {
                 setSpeakingStyles(val);
                 setIconSpeakingStyle({val, styles, setStyles});
@@ -126,13 +133,13 @@ const CssMaker = () => {
               ]} />
             <SliderListItem
               title={t("speed_of_movement")}
+              name="speed_of_movement"
               onChange={(val) => cssObj.iconSpeakingDuration({val, styles, setStyles})} />
             {(speakingStyles.includes('light') || speakingStyles.includes('border')) && (
               <ColorPickerListItem
                 title="枠・後光の色"
-                defaultValue={animationColor}
+                value={animationColor}
                 onChange={(value) => {
-                  console.log(value);
                   setAnimationColor(`${value}`);
                 }} />
             )}
@@ -166,7 +173,10 @@ const CssMaker = () => {
         </InputArea>
       </Grid>
       <Grid item md={6} xs={12} sx={{ overflow: 'hidden' }}>
-        <DiscordIconPreview isSolo={isSolo} styles={styles} userIdImgStyles={userIdImgStyles} />
+        <DiscordIconPreview
+          isSolo={isSolo}
+          styles={styles}
+          userIdImgStyles={userIdImgStyles} />
       </Grid>
       <Grid item xs={12}>
         <CssString value={
@@ -190,7 +200,6 @@ type AnimationStyleProps = {
   animationColor: string;
 };
 const AnimationStyle = ((props: AnimationStyleProps) => {
-  console.log(props);
   if ((props.speakingStyles || []).length === 0 || !props.animationColor) return null;
   return (
     <><style>{getCssKeyFrames(props.speakingStyles, props.animationColor)}</style></>

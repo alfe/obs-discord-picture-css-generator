@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  MuiColorInput,
-  MuiColorInputValue,
-  MuiColorInputColors,
-} from 'mui-color-input'
+import { MuiColorInput } from 'mui-color-input'
 import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
 import ListItem from '@mui/material/ListItem';
@@ -12,17 +8,14 @@ export type ColorPickerListItemProps = {
   title: string;
   disabled?: boolean;
   onChange: (value: string) => void;
-  defaultValue?: string;
+  value: string;
 };
-const ColorPickerListItem = ({ title, disabled, onChange, defaultValue }: ColorPickerListItemProps) => {
-  const [value, setValue] = React.useState<MuiColorInputValue>(defaultValue || '#ffffff');
-
+const ColorPickerListItem = ({ title, disabled, onChange, value }: ColorPickerListItemProps) => {
   React.useEffect(() => {
     onChange(`${value}`);
   }, [disabled])
 
-  const handleChange = (newValue: string, colors: MuiColorInputColors) => {
-    setValue(newValue);
+  const handleChange = (newValue: string) => {
     onChange(`${newValue}`);
   }
 
@@ -32,7 +25,6 @@ const ColorPickerListItem = ({ title, disabled, onChange, defaultValue }: ColorP
       <FormLabel component="legend">{title}</FormLabel>
       <Box sx={{ width: 250 }}>
         <MuiColorInput
-          format="hex"
           value={value}
           disabled={disabled}
           onChange={handleChange} />

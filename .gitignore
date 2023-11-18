@@ -24,3 +24,9 @@ dist-ssr
 *.sln
 *.sw?
 cypress/support/customCommands.d.ts
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
