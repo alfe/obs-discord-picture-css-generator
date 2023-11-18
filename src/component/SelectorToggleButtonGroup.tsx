@@ -1,4 +1,3 @@
-import React from 'react'
 import FormLabel from '@mui/material/FormLabel';
 import ListItem from '@mui/material/ListItem';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -7,14 +6,15 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 type Option = { label: string; value: string };
 export type SelectorToggleButtonGroupProps = {
   title: string;
+  value: string[];
+  name: string;
   options: Option[];
   onChange: (value: string[]) => void;
 };
-const SelectorToggleButtonGroup = ({ title, options, onChange }: SelectorToggleButtonGroupProps) => {
-  const [value, setValue] = React.useState<string[]>([]);
+const SelectorToggleButtonGroup = ({ title, value, name, options, onChange }: SelectorToggleButtonGroupProps) => {
   const handleChange = (_: any, val: string[]) => {
     if (!val) return;
-    setValue(val);
+    localStorage.setItem(`${name}`, JSON.stringify(val));
     onChange(val);
   };
   return (

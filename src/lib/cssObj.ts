@@ -11,7 +11,7 @@ type StyleInsetType = {
 }
 
 // アバターの表示
-export const imgAvatarStyle = ({ imgIndex, userId = '739000000000000000', isHasMaxWidth, val, styles, setStyles }: {
+export const imgAvatarStyle = ({ imgIndex, userId = '000000000000000000', isHasMaxWidth, val, styles, setStyles }: {
   imgIndex: string;
   userId: string;
   isHasMaxWidth: boolean;
@@ -19,11 +19,11 @@ export const imgAvatarStyle = ({ imgIndex, userId = '739000000000000000', isHasM
   styles: any;
   setStyles: React.Dispatch<React.SetStateAction<any>>;
 }) => {
-  // const imgSelector = `img[src*="avatars/${val[0]}"]`;
+  const [_userId, imgUrl, mouthImgUrl, memo] = val;
   setStyles({
     ...styles,
     [imgIndex]: {
-      content: `url(${val[1]})`,
+      content: `url(${imgUrl})`, // preview用
       height: 'auto',
       width: 'auto',
       ...(isHasMaxWidth ? {
@@ -109,14 +109,15 @@ export const setIconSpeakingStyle = ({ val, styles, setStyles }: StyleInsetType 
   const newAnimation = val.map((animationType: string) => {
     switch (animationType) {
       case 'border':
-        return '750ms infinite alternate ease-in-out speak-border';
+        return `750ms infinite alternate ease-in-out speak-border`;
       case 'light':
-        return '750ms infinite alternate ease-in-out speak-light';
+        return `750ms infinite alternate ease-in-out speak-light`;
       case 'jump':
-        return '750ms infinite alternate ease-in-out speak-jump';
+        return `750ms infinite alternate ease-in-out speak-jump`;
       default: return '';
     }
   })
+  console.log(newAnimation)
 
   setStyles({
     ...styles,
