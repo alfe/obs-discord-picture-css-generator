@@ -121,10 +121,6 @@ export const setIconSpeakingStyle = ({ val, styles, setStyles }: StyleInsetType 
 
   setStyles({
     ...styles,
-    avatar: {
-      ...avatar,
-      filter: 'brightness(70%)',
-    },
     avatarSpeaking: {
       ...avatarSpeaking,
       position: 'relative',

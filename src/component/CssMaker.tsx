@@ -150,6 +150,17 @@ const CssMaker = () => {
                 setHiddenName(val);
                 setUsernameHidden({val, styles, setStyles});
               }} />
+            <CheckBoxListItem
+              title="静かな人を暗くする"
+              onChange={(val: boolean) => {
+                setStyles({
+                  ...styles,
+                  avatar: {
+                    ...styles.avatar,
+                    filter: val ? 'brightness(70%)' : 'brightness(100%)',
+                  },
+                })
+              }} />
             {!isHiddenName && (<>
               <SliderListItem
                 title={t("top_and_bottom")}
