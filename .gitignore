@@ -30,3 +30,6 @@ cypress/support/customCommands.d.ts
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Local Netlify folder
+.netlify
