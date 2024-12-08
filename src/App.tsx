@@ -1,19 +1,25 @@
-import CssMaker from './component/CssMaker'
-import './App.css'
-import { Box, Button, ButtonGroup, Container, Typography } from '@mui/material';
-import { useTranslation } from "react-i18next";
-import TutorialButton from './component/TutorialButton';
 import { useEffect } from 'react';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import { useTranslation } from "react-i18next";
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
+import TutorialButton from './component/TutorialButton';
+import CssMaker from './component/CssMaker'
+import theme from './theme';
+import './App.css'
 
 function App() {
   return (
-    <div className='App-content'>
-      <Header />
-      <Container>
-        <CssMaker />
-      </Container>
-      <Footer />
-    </div >
+    <ThemeProvider theme={theme}>
+      <div className='App-content'>
+        <Header />
+        <Container>
+          <CssMaker />
+        </Container>
+        <Footer />
+      </div >
+    </ThemeProvider>
   );
 };
 export default App
@@ -22,21 +28,9 @@ const Header = () => {
   const { t, i18n } = useTranslation("translation", { keyPrefix: "header" });
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);
-    // location.replace(`${location.origin}/${language === 'ja' ? '' : language}`)
   };
   const setLanguage = () => {
     changeLanguage('ja');
-
-    // const language = i18n.language;
-    // if ((location.pathname === '' || location.pathname === '/') && language === 'ja') {
-    //   return;
-    // }
-    // if (location.pathname === '/ja') {
-    //   changeLanguage('ja');
-    // }
-    // if ((location.pathname !== '' && location.pathname !== '/') && location.pathname !== '/ja' && (location.pathname.substring(1) !== language)) {
-    //   changeLanguage(location.pathname.substring(1));
-    // }
   }
   useEffect(() => {
     setLanguage();
@@ -45,22 +39,6 @@ const Header = () => {
   return (
     <header>
       <Box sx={{ m: 5 }}>
-        {/* <ButtonGroup sx={{
-          position: 'absolute',
-          right: '2rem',
-          top: '1rem',
-        }}>
-          <Button
-            variant={i18n.language==="ja" ? "contained" : "outlined"}
-            onClick={() => changeLanguage("ja")}>
-              日本語
-          </Button>
-          <Button
-            variant={i18n.language==="en" ? "contained" : "outlined"}
-            onClick={() => changeLanguage("en")}>
-              English
-          </Button>
-        </ButtonGroup> */}
         <Typography align="center" component="h1" variant="h3" paragraph>
           <>{t("title")}</>
         </Typography>
@@ -69,7 +47,7 @@ const Header = () => {
             <>{t("title_anno")}</>
           </Typography>
           <Typography align="center" paragraph variant="caption">
-            <a href="https://obs-discord-icon.alfebelow.com/">アイコンに見た目に変えたいときはこちら</a> /
+            <a href="https://obs-discord-icon.alfebelow.com/">アイコンの見た目に変えたいときはこちら</a>&emsp;/&emsp; 
             <a href="https://obs-discord-text.alfebelow.com/">テキストチャンネルの見た目を変えたいときはこちら</a>
           </Typography>
           <TutorialButton />
@@ -85,14 +63,14 @@ const Footer = () => {
     <footer className='App-footer'>
       <p>
         <>
-          解説動画 (
-            <a href='https://www.nicovideo.jp/watch/sm41544646' target='_blank' >
-              ニコニコ動画
-            </a>
-            /
-            <a href='https://www.youtube.com/watch?v=kMxfhHgI2OA' target='_blank' >
-              Youtube
-            </a>)
+          {t("commentary_article")} (
+          <a href='https://www.nicovideo.jp/watch/sm41544646' target='_blank' >
+            <>{t("niconico")}</>
+          </a>
+          /
+          <a href='https://www.youtube.com/watch?v=kMxfhHgI2OA' target='_blank' >
+            <>{t("youtube")}</>
+          </a>)
         </>
       </p>
       <p>

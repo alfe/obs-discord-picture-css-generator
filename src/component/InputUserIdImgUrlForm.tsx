@@ -3,6 +3,7 @@ import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
 import WhatIsDiscordUserIdButton from './WhatIsDiscordUserIdButton';
 import tranceAlfeMouth from './img/trance_alfe_mouth.png';
+import { Divider } from '@mui/material';
 
 type InputUserIdImgUrlFormProps = {
   name: string;
@@ -60,6 +61,8 @@ const InputUserIdImgUrlForm = ({ name, hasHelp, onChange }: InputUserIdImgUrlFor
 
   return (
     <>
+      {!hasHelp && <Divider sx={{ my: 2 }} />}
+
       <ListItem
         sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', columnGap: 2 }}
       >
@@ -86,7 +89,6 @@ const InputUserIdImgUrlForm = ({ name, hasHelp, onChange }: InputUserIdImgUrlFor
       <ListItem
         sx={{
           display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', columnGap: 2,
-          borderBottom: '1px solid #DDD',
         }}
       >
         <TextField

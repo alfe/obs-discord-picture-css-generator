@@ -30,11 +30,11 @@ export const getCssText = ({
 }): string=> {
   const urlVariants: string[] = [];
   const imgSelectors = userIdImgUrls
-    .filter(([userId, imgUrl]) => !!userId && !!imgUrl && userId !== '000000000000000000')
+    // .filter(([userId, imgUrl]) => !!userId && !!imgUrl && userId !== '000000000000000000')
     .map(([userId, imgUrl, mouthImgUrl, memo]) => {
     urlVariants.push(`
   /* ${userId} ${memo} */
-  --img-stand-url-${userId}: url("${imgUrl}");
+  --img-stand-url-${userId}: url("${(imgUrl === '/src/component/img/trance_alfe.png') ? '' : imgUrl}");
   --img-mouth-url-${userId}: url("${mouthImgUrl}");
 `);
     return (`
@@ -73,7 +73,10 @@ img:not([src*="avatars/${userIdImgUrls[0][0]}"]), img:not([src*="avatars/${userI
   display: none;
 }`;
 
-  return `:root {${urlVariants.join('')}}
+  return `:root {
+  /* 画像のみ変更したいときはここのURLを書き換える */${urlVariants.join('')}}
+
+/* ここから下は見た目の変更用CSS */
 body, #root {
   overflow: hidden !important;
 }
