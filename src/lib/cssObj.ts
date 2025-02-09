@@ -117,7 +117,6 @@ export const setIconSpeakingStyle = ({ val, styles, setStyles }: StyleInsetType 
       default: return '';
     }
   })
-  console.log(newAnimation)
 
   setStyles({
     ...styles,

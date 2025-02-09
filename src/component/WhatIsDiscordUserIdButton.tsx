@@ -18,7 +18,7 @@ const WhatIsDiscordUserIdButton = () => {
   const [open, setOpen] = React.useState(false);
   return (
     <>
-      <Box sx={{ textAlign: 'right', mx: -2 }}>
+      <Box sx={{ textAlign: 'right', mx: -2, display: 'block' }} component="span">
         <Button onClick={() => { setOpen(true); }} sx={{ margin: '0 0 0 auto', fontSize: '.8em', alignItems: 'flex-end' }}>
           <HelpOutlineIcon fontSize="small" />DiscordユーザIDとは
         </Button>

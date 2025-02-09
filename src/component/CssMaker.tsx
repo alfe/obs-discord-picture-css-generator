@@ -86,7 +86,6 @@ const CssMaker = () => {
                 name={`id-url-forms-${index}`}
                 hasHelp={index === 0}
                 onChange={(userId: string, imgUrl: string, mouthImgUrl: string, memo: string) => {
-                  console.log(`${userId},${imgUrl},${mouthImgUrl}, ${memo}`);
                   if (!userId) userId = '000000000000000000'
                   if (!imgUrl || imgUrl.length === 0) imgUrl = tranceAlfe
                   userIdImgUrls.splice(index, 1, [userId, imgUrl, mouthImgUrl || '', memo || '']);
