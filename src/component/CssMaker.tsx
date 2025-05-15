@@ -70,7 +70,7 @@ const CssMaker = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item md={6} xs={12}>
+      <Grid size={6}>
         <InputArea>
           <Typography sx={{ pl: 2 }} align="left">立ち絵変更ユーザ</Typography>
           <List>
@@ -182,13 +182,13 @@ const CssMaker = () => {
           </List>
         </InputArea>
       </Grid>
-      <Grid item md={6} xs={12} sx={{ overflow: 'hidden' }}>
+      <Grid size={6} sx={{ overflow: 'hidden' }}>
         <DiscordIconPreview
           isSolo={isSolo}
           styles={styles}
           userIdImgStyles={userIdImgStyles} />
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={12}>
         <CssString value={
           getCssText({
             styles,
