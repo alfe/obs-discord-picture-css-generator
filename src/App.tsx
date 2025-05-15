@@ -74,7 +74,7 @@ const Footer = () => {
         </>
       </p>
       <p>
-        made by <a href='https://twitter.com/alfe_below' target='_blank' >@alfe_below</a>
+        made by <a href='https://x.com/alfe_below' target='_blank' >@alfe_below</a>
         / <a href='https://github.com/alfe/obs-discord-picture-css-generator' target='_blank' >GitHub</a>
       </p>
     </footer>
