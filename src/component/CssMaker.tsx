@@ -23,6 +23,7 @@ import CheckBoxListItem from './CheckBoxListItem';
 import ColorPickerListItem from './ColorPickerListItem';
 import tranceAlfe from './img/trance_alfe.png';
 import tranceAlfeMouth from './img/trance_alfe_mouth.png';
+import TutorialButton from './TutorialButton';
 
 const CssMaker = () => {
   const [styles, setStyles] = React.useState<CustomStyle>({
@@ -71,6 +72,7 @@ const CssMaker = () => {
   return (
     <Grid container spacing={2}>
       <Grid size={6}>
+        <SectionTitle index={1} title="見た目の設定" />
         <InputArea>
           <Typography sx={{ pl: 2 }} align="left">立ち絵変更ユーザ</Typography>
           <List>
@@ -183,12 +185,14 @@ const CssMaker = () => {
         </InputArea>
       </Grid>
       <Grid size={6} sx={{ overflow: 'hidden' }}>
+        <SectionTitle index={2} title="プレビューを確認" />
         <DiscordIconPreview
           isSolo={isSolo}
           styles={styles}
           userIdImgStyles={userIdImgStyles} />
       </Grid>
       <Grid size={12}>
+        <SectionTitle index={3} title="CSSをコピー" />
         <CssString value={
           getCssText({
             styles,
@@ -199,6 +203,15 @@ const CssMaker = () => {
             isHasMaxWidth,
             isNotSetShow,
           })} />
+      </Grid>
+      <Grid size={12}>
+        <SectionTitle index={4} title="OBSに貼り付け" />
+        <InputArea>
+          <Typography variant="body1" component="p" sx={{ my: 2 }}>
+            OBSにカスタムCSSを適用するには、以下を参考にしてください。
+          </Typography>
+          <TutorialButton />
+        </InputArea>
       </Grid>
     </Grid>
   );
@@ -235,4 +248,21 @@ const FoldingMenu = ({ title, children }: { title: string; children: React.React
       </Box>
     </>
   );
-}
+};
+
+const SectionTitle = ({ index, title }: { index: number, title: string }) => {
+  return (
+    <Typography variant="h6" component="h2" sx={{
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+      padding: '.25rem 1rem',
+      mb: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      borderRadius: '4px',
+      border: '1px solid rgba(0, 0, 0, 0.2)',
+      boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+      }}>
+      {index}. {title}
+    </Typography>
+  );
+};
