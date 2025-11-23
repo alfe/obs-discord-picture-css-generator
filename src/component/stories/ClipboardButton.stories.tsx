@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import ClipboardButton from '../ClipboardButton';
 
 export default { component: ClipboardButton } as Meta;

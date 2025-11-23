@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react-vite'
 import TutorialButton from '../TutorialButton';
 
 export default { component: TutorialButton } as Meta;

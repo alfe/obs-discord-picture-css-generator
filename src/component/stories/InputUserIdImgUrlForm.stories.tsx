@@ -1,5 +1,5 @@
-import { StoryObj } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
+import { StoryObj } from '@storybook/react-vite'
+import { action } from 'storybook/actions'
 import InputUserIdImgUrlForm from '../InputUserIdImgUrlForm';
 
 export default { component: InputUserIdImgUrlForm };
