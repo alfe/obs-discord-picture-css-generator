@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import WhatIsDiscordUserIdButton from './WhatIsDiscordUserIdButton';
 import tranceAlfeMouth from './img/trance_alfe_mouth.png';
 import { Divider } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 type InputUserIdImgUrlFormProps = {
   name: string;
@@ -15,6 +16,7 @@ const InputUserIdImgUrlForm = ({ name, hasHelp, onChange }: InputUserIdImgUrlFor
   const [imgUrl, setImgUrl] = React.useState(localStorage.getItem(`${name}-img-url`) || '');
   const [mouthImgUrl, setMouthImgUrl] = React.useState(localStorage.getItem(`${name}-mouth-img-url`) || '');
   const [memo, setMemo] = React.useState(localStorage.getItem(`${name}-memo`) || '');
+  const { t } = useTranslation("translation", { keyPrefix: "input_user_id_img_url_form" });
 
   React.useEffect(() => {
     onChange(userId, imgUrl, mouthImgUrl, memo);
@@ -67,24 +69,24 @@ const InputUserIdImgUrlForm = ({ name, hasHelp, onChange }: InputUserIdImgUrlFor
         sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', columnGap: 2 }}
       >
         <TextField
-          label="DiscordユーザID *"
+          label={t("discord_user_id")}
           sx={{ width: '12rem' }}
           variant="outlined"
           helperText={hasHelp ? (<WhatIsDiscordUserIdButton />) : ''}
           value={userId}
           onChange={handleUserIdChange}
-          InputLabelProps={{ shrink: true }}
+          slotProps={{ inputLabel: { shrink: true } }}
           placeholder="000000000000000000" />
         <TextField
           color="secondary"
           fullWidth
-          label="メモ書き"
+          label={t("memo")}
           variant="outlined"
           value={memo}
           onChange={handleMemo}
-          helperText="※ なくてもOK"
-          InputLabelProps={{ shrink: true }}
-          placeholder="ねこさん立ち絵" />
+          helperText={t("memo_help")}
+          slotProps={{ inputLabel: { shrink: true } }}
+          placeholder={t("memo_placeholder")} />
       </ListItem>
       <ListItem
         sx={{
@@ -92,25 +94,25 @@ const InputUserIdImgUrlForm = ({ name, hasHelp, onChange }: InputUserIdImgUrlFor
         }}
       >
         <TextField
-          label="画像URL *"
+          label={t("img_url")}
           fullWidth
           variant="outlined"
           value={imgUrl}
           onChange={handleImgUrl}
-          InputLabelProps={{ shrink: true }}
-          helperText="Discordに貼った画像のURL"
+          helperText={t("img_url_help")}
+          slotProps={{ inputLabel: { shrink: true } }}
           placeholder="https://cdn.discordapp.com/.../image.jpg" />
         <TextField
           color="secondary"
           fullWidth
           sx={{ '.MuiInputBase-root.Mui-disabled': { backgroundColor: 'rgba(0, 0, 0, .2)'}}}
-          label="口パク画像URL"
+          label={t("mouth_img_url")}
           variant="outlined"
           value={mouthImgUrl}
           onChange={handleMouthImgUrl}
           disabled={!imgUrl}
-          helperText="※ なくてもOK"
-          InputLabelProps={{ shrink: true }}
+          helperText={t("mouth_img_url_help")}
+          slotProps={{ inputLabel: { shrink: true } }}
           placeholder="https://example.com/image.jpg" />
       </ListItem>
 

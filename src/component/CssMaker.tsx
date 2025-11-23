@@ -72,12 +72,12 @@ const CssMaker = () => {
   return (
     <Grid container spacing={2}>
       <Grid size={6}>
-        <SectionTitle index={1} title="見た目の設定" />
+        <SectionTitle index={1} title={t("appearance_settings")} />
         <InputArea>
-          <Typography sx={{ pl: 2 }} align="left">立ち絵変更ユーザ</Typography>
+          <Typography sx={{ pl: 2 }} align="left">{t("user_for_picture_change")}</Typography>
           <List>
             <CheckBoxListItem
-              title="ひとりだけ表示"
+              title={t("only_one_user")}
               onChange={(value: boolean) => {
                 setIsSolo(value);
                 setUserIdImgUrls([userIdImgUrls[0]]);
@@ -108,7 +108,7 @@ const CssMaker = () => {
               onClick={() => {
                 setUserIdImgUrls([...userIdImgUrls, ['', '']]);
               }}>
-              追加
+              {t("add_user")}
             </Button>
           )}
         </InputArea>
@@ -138,7 +138,7 @@ const CssMaker = () => {
               onChange={(val) => cssObj.iconSpeakingDuration({val, styles, setStyles})} />
             {(speakingStyles.includes('light') || speakingStyles.includes('border')) && (
               <ColorPickerListItem
-                title="枠・後光の色"
+                title={t("border_and_back_light_color")}
                 value={animationColor}
                 onChange={(value) => {
                   setAnimationColor(`${value}`);
@@ -146,13 +146,13 @@ const CssMaker = () => {
             )}
 
             <CheckBoxListItem
-              title="名前を隠す"
+              title={t("hide_user")}
               onChange={(val: boolean) => {
                 setHiddenName(val);
                 setUsernameHidden({val, styles, setStyles});
               }} />
             <CheckBoxListItem
-              title="静かな人を暗くする"
+              title={t("darken_quiet_user")}
               onChange={(val: boolean) => {
                 setStyles({
                   ...styles,
@@ -173,11 +173,11 @@ const CssMaker = () => {
 
             <Divider />
 
-            <FoldingMenu title="高度なオプション">
-              <CheckBoxListItem title="画像の大きさを制限" onChange={(val => {
+            <FoldingMenu title={t("advanced_options")}>
+              <CheckBoxListItem title={t("limit_icon_size")} onChange={(val => {
                 setIsHasMaxWidth(val)
               })}/>
-              <CheckBoxListItem title="立ち絵未設定の人を表示" disabled={isSolo} onChange={(val => {
+              <CheckBoxListItem title={t("show_user_with_no_picture")} disabled={isSolo} onChange={(val => {
                 setIsNotSetShow(val)
               })}/>
             </FoldingMenu>
@@ -185,14 +185,14 @@ const CssMaker = () => {
         </InputArea>
       </Grid>
       <Grid size={6} sx={{ overflow: 'hidden' }}>
-        <SectionTitle index={2} title="プレビューを確認" />
+        <SectionTitle index={2} title={t("check_preview")} />
         <DiscordIconPreview
           isSolo={isSolo}
           styles={styles}
           userIdImgStyles={userIdImgStyles} />
       </Grid>
       <Grid size={12}>
-        <SectionTitle index={3} title="CSSをコピー" />
+        <SectionTitle index={3} title={t("copy_css")} />
         <CssString value={
           getCssText({
             styles,
@@ -205,10 +205,10 @@ const CssMaker = () => {
           })} />
       </Grid>
       <Grid size={12}>
-        <SectionTitle index={4} title="OBSに貼り付け" />
+        <SectionTitle index={4} title={t("paste_obs")} />
         <InputArea>
           <Typography variant="body1" component="p" sx={{ my: 2 }}>
-            OBSにカスタムCSSを適用するには、以下を参考にしてください。
+            {t("paste_obs_description")}
           </Typography>
           <TutorialButton />
         </InputArea>

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { useTranslation } from "react-i18next";
@@ -28,17 +29,37 @@ const Header = () => {
   const { t, i18n } = useTranslation("translation", { keyPrefix: "header" });
   const changeLanguage = (language: string) => {
     i18n.changeLanguage(language);
+    location.replace(`${location.origin}/${language === 'ja' ? '' : language}`)
   };
-  const setLanguage = () => {
-    changeLanguage('ja');
-  }
   useEffect(() => {
-    setLanguage();
-  }, []);
+    switch (location.pathname) {
+      case '/en': i18n.changeLanguage('en'); break;
+      case '/ja': i18n.changeLanguage('ja'); break;
+      case '':
+      default:
+        break;
+    }
+  }, [])
 
   return (
     <header>
-      <Box sx={{ m: 5 }}>
+      <Box sx={{ m: 5, mt: 8 }}>
+        <Box sx={{
+          position: 'absolute',
+          right: '1rem',
+          top: '0.5rem',
+        }}>
+          <Button
+            variant={(location.pathname === '' || i18n.language==="ja") ? "contained" : "text"}
+            onClick={() => changeLanguage("ja")}>
+            日本語
+          </Button>
+          <Button
+            variant={i18n.language==="en" ? "contained" : "text"}
+            onClick={() => changeLanguage("en")}>
+            English (WIP)
+          </Button>
+        </Box>
         <Typography align="center" component="h1" variant="h3" paragraph>
           <>{t("title")}</>
         </Typography>
@@ -47,8 +68,8 @@ const Header = () => {
             <>{t("title_anno")}</>
           </Typography>
           <Typography align="center" paragraph variant="caption">
-            <a href="https://obs-discord-icon.alfebelow.com/">アイコンの見た目に変えたいときはこちら</a>&emsp;/&emsp; 
-            <a href="https://obs-discord-text.alfebelow.com/">テキストチャンネルの見た目を変えたいときはこちら</a>
+            <a href="https://obs-discord-icon.alfebelow.com/">{t("icon_link")}</a>&emsp;/&emsp; 
+            <a href="https://obs-discord-text.alfebelow.com/">{t("text_link")}</a>
           </Typography>
           <TutorialButton />
         </Container>
