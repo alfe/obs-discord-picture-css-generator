@@ -5,7 +5,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import HelpIcon from '@mui/icons-material/Help';
 import Box from '@mui/material/Box';
 import idCopy from './img/id_copy.jpg';
 import discordSettingDetail from './img/discord-setting-detail.jpg';
@@ -22,7 +22,7 @@ const WhatIsDiscordUserIdButton = () => {
     <>
       <Box sx={{ textAlign: 'right', mx: -2, display: 'block' }} component="span">
         <Button onClick={() => { setOpen(true); }} sx={{ margin: '0 0 0 auto', fontSize: '.8em', alignItems: 'flex-end' }}>
-          <HelpOutlineIcon fontSize="small" />{t("discord_user_id_and_is")}
+          <HelpIcon fontSize="small" />{t("discord_user_id_and_is")}
         </Button>
       </Box>
       <Dialog open={open} onClose={() => { setOpen(false); }}>
@@ -50,7 +50,7 @@ const AboutDiscordUserIdDialogContent = () => {
       </Box>
       <Box sx={{ textAlign: 'right' }}>
         <Button onClick={() => { setOpen(true); }}>
-          <HelpOutlineIcon />{t("click_to_copy_id_is_not_displayed")}
+          <HelpIcon />{t("click_to_copy_id_is_not_displayed")}
         </Button>
       </Box>
 

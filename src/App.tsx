@@ -60,17 +60,19 @@ const Header = () => {
             English (WIP)
           </Button>
         </Box>
-        <Typography align="center" component="h1" variant="h3" paragraph>
+        <Typography align="center" component="h1" variant="h3">
           <>{t("title")}</>
         </Typography>
         <Container>
-          <Typography align="center" paragraph>
+          <Typography align="center">
             <>{t("title_anno")}</>
           </Typography>
-          <Typography align="center" paragraph variant="caption">
-            <a href="https://obs-discord-icon.alfebelow.com/">{t("icon_link")}</a>&emsp;/&emsp; 
-            <a href="https://obs-discord-text.alfebelow.com/">{t("text_link")}</a>
-          </Typography>
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="caption">
+              <a href="https://obs-discord-icon.alfebelow.com/">{t("icon_link")}</a>&emsp;/&emsp; 
+              <a href="https://obs-discord-text.alfebelow.com/">{t("text_link")}</a>
+            </Typography>
+          </Box>
           <TutorialButton />
         </Container>
       </Box>

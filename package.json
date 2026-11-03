@@ -31,36 +31,33 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@mui/icons-material": "7.3.5",
-    "@mui/material": "7.3.5",
+    "@mui/icons-material": "9.5.0",
+    "@mui/material": "9.5.0",
     "@mui/styles": "6.4.11",
-    "i18next": "^25.6.3",
-    "i18next-browser-languagedetector": "^8.2.0",
-    "mui-color-input": "^7.0.0",
-    "react": "^19.2.0",
-    "react-copy-to-clipboard": "^5.1.0",
-    "react-dom": "^19.2.0",
-    "react-i18next": "^16.3.5"
+    "i18next": "^26.7.1",
+    "i18next-browser-languagedetector": "^8.3.0",
+    "mui-color-input": "^9.0.0",
+    "react": "^19.3.1",
+    "react-copy-to-clipboard": "^5.1.1",
+    "react-dom": "^19.3.1",
+    "react-i18next": "^17.1.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@storybook/addon-docs": "10.0.8",
-    "@storybook/addon-links": "^10.0.8",
-    "@storybook/addon-onboarding": "10.0.8",
-    "@storybook/react-vite": "10.0.8",
+    "@babel/core": "^8.1.0",
+    "@storybook/addon-docs": "10.6.5",
+    "@storybook/addon-links": "^10.6.5",
+    "@storybook/addon-onboarding": "10.6.5",
+    "@storybook/react-vite": "10.6.5",
     "@storybook/testing-library": "^0.2.2",
-    "@types/react": "^19.2.6",
+    "@types/react": "^19.3.0",
     "@types/react-copy-to-clipboard": "5.0.7",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
-    "babel-loader": "^10.0.0",
-    "chromatic": "^13.3.4",
-    "storybook": "10.0.8",
-    "typescript": "^5.9.3",
-    "vite": "^7.2.4"
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.2.1",
+    "babel-loader": "^10.1.1",
+    "chromatic": "^18.13.9",
+    "storybook": "10.6.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
   },
-  "resolutions": {
-    "@types/react": "^18.0.21"
-  },
-  "packageManager": "yarn@4.11.0"
+  "packageManager": "yarn@4.18.1"
 }
